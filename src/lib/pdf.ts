@@ -1,6 +1,7 @@
 import { PDFParse } from "pdf-parse";
+import { MAX_CV_FILE_BYTES } from "@/lib/validation";
 
-export const MAX_CV_FILE_BYTES = 5 * 1024 * 1024;
+export { MAX_CV_FILE_BYTES };
 export const MAX_CV_TEXT_LENGTH = 30_000;
 
 export class CvFileError extends Error {
