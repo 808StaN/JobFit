@@ -28,7 +28,7 @@ Required environment variables in `.env.local`:
 
 ```bash
 OPENROUTER_API_KEY=your_openrouter_key
-OPENROUTER_MODEL=google/gemma-3-27b-it:free
+OPENROUTER_MODEL=openrouter/free
 APP_URL=http://localhost:3000
 ```
 

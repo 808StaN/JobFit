@@ -3,6 +3,9 @@ import { AiServiceError, requestStructuredAi } from "@/lib/ai/openrouter";
 import { createImproveBulletPrompt } from "@/lib/ai/prompts";
 import { improveBulletSchema } from "@/lib/schemas/analysis";
 
+export const runtime = "nodejs";
+export const maxDuration = 60;
+
 const MAX_BULLET_LENGTH = 1_000;
 const MAX_JOB_DESCRIPTION_LENGTH = 20_000;
 

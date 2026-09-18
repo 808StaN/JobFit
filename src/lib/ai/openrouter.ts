@@ -9,7 +9,12 @@ export class AiServiceError extends Error {
 }
 
 interface OpenRouterResponse {
-  choices?: Array<{ message?: { content?: string } }>;
+  choices?: Array<{
+    message?: {
+      content?: string | Array<string | { text?: string }>;
+      reasoning?: string;
+    };
+  }>;
   error?: { message?: string };
 }
 
@@ -17,14 +22,36 @@ function cleanJson(content: string) {
   return content.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim();
 }
 
-export async function requestStructuredAi(prompt: string) {
-  const apiKey = process.env.OPENROUTER_API_KEY;
-  const model = process.env.OPENROUTER_MODEL;
+function extractMessageText(payload: OpenRouterResponse | null) {
+  const message = payload?.choices?.[0]?.message;
+  const content = message?.content;
 
-  if (!apiKey || !model) {
-    throw new AiServiceError("AI analysis is not configured yet.", 503);
+  if (typeof content === "string" && content.trim()) {
+    return content;
   }
 
+  if (Array.isArray(content)) {
+    const joined = content
+      .map((part) => {
+        if (typeof part === "string") {
+          return part;
+        }
+        return part?.text ?? "";
+      })
+      .join("");
+    if (joined.trim()) {
+      return joined;
+    }
+  }
+
+  if (typeof message?.reasoning === "string" && message.reasoning.trim()) {
+    return message.reasoning;
+  }
+
+  return "";
+}
+
+async function completeOnce(apiKey: string, model: string, prompt: string, jsonMode: boolean) {
   let response: Response;
   try {
     response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -38,7 +65,7 @@ export async function requestStructuredAi(prompt: string) {
       body: JSON.stringify({
         model,
         temperature: 0.2,
-        response_format: { type: "json_object" },
+        ...(jsonMode ? { response_format: { type: "json_object" } } : {}),
         messages: [
           {
             role: "system",
@@ -47,7 +74,7 @@ export async function requestStructuredAi(prompt: string) {
           { role: "user", content: prompt },
         ],
       }),
-      signal: AbortSignal.timeout(30_000),
+      signal: AbortSignal.timeout(60_000),
     });
   } catch {
     throw new AiServiceError("The AI service did not respond. Please try again.", 504);
@@ -56,10 +83,30 @@ export async function requestStructuredAi(prompt: string) {
   const payload = (await response.json().catch(() => null)) as OpenRouterResponse | null;
 
   if (!response.ok) {
-    throw new AiServiceError(payload?.error?.message ?? "The AI service could not complete the request.", 502);
+    const providerMessage = payload?.error?.message ?? "The AI service could not complete the request.";
+    const status = response.status === 429 ? 429 : 502;
+    throw new AiServiceError(
+      status === 429 ? "The AI service is busy right now. Please try again in a moment." : providerMessage,
+      status === 429 ? 503 : 502,
+    );
   }
 
-  const content = payload?.choices?.[0]?.message?.content;
+  return extractMessageText(payload);
+}
+
+export async function requestStructuredAi(prompt: string) {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  const model = process.env.OPENROUTER_MODEL ?? "openrouter/free";
+
+  if (!apiKey) {
+    throw new AiServiceError("AI analysis is not configured yet.", 503);
+  }
+
+  let content = await completeOnce(apiKey, model, prompt, true);
+  if (!content) {
+    content = await completeOnce(apiKey, model, prompt, false);
+  }
+
   if (!content) {
     throw new AiServiceError("The AI service returned an empty response.", 502);
   }

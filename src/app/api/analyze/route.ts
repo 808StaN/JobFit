@@ -5,6 +5,7 @@ import { extractCvText, CvFileError } from "@/lib/pdf";
 import { analysisSchema } from "@/lib/schemas/analysis";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
 const MAX_JOB_DESCRIPTION_LENGTH = 20_000;
 
