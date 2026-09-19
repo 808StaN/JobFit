@@ -30,14 +30,14 @@ export function SiteHeader() {
             <Link
               href="/"
               aria-current={isHome ? "page" : undefined}
-              className={`hidden rounded-[7px] px-2.5 py-1.5 hover:bg-white/10 hover:text-white sm:inline-flex ${isHome ? "text-white" : "text-white/70"}`}
+              className={`hidden rounded-[14px] px-2.5 py-1.5 hover:bg-white/10 hover:text-white sm:inline-flex ${isHome ? "text-white" : "text-white/70"}`}
             >
               Home
             </Link>
             <Link
               href="/analyze"
               aria-current={isAnalyze ? "page" : undefined}
-              className={`inline-flex items-center gap-2 rounded-[7px] px-2.5 py-1.5 hover:bg-white/10 hover:text-white ${isAnalyze ? "text-white" : "text-white/80"}`}
+              className={`inline-flex items-center gap-2 rounded-[14px] px-2.5 py-1.5 hover:bg-white/10 hover:text-white ${isAnalyze ? "text-white" : "text-white/80"}`}
             >
               Analyze my fit
               <IconArrowUpRight size={16} stroke={1.8} aria-hidden />

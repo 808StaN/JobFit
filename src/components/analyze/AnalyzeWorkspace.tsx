@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { IconArrowRight } from "@tabler/icons-react";
 import { AnalysisResults } from "@/components/analysis/AnalysisResults";
 import { AnalysisProgress } from "@/components/analyze/AnalysisProgress";
 import { CvUpload } from "@/components/analyze/CvUpload";
 import { ErrorMessage } from "@/components/analyze/ErrorMessage";
 import { ImproveBullet } from "@/components/analyze/ImproveBullet";
 import { JobDescriptionField } from "@/components/analyze/JobDescriptionField";
+import { GravityButton } from "@/components/ui/GravityLink";
 import type { Analysis } from "@/lib/schemas/analysis";
 import { validateCvFile, validateJobDescription } from "@/lib/validation";
 
@@ -102,12 +102,22 @@ export function AnalyzeWorkspace() {
             <p className="max-w-xl text-sm leading-6 text-[var(--text-muted)]">
               The result measures evidence in this CV, not your overall suitability or hiring odds.
             </p>
-            <button type="submit" disabled={pending} className="button-primary group w-full sm:w-auto">
-              {pending ? "Analyzing" : analysis ? "Run a new review" : "Analyze my fit"}
-              {!pending ? (
-                <IconArrowRight className="transition-transform group-hover:translate-x-0.5" size={18} stroke={1.8} aria-hidden />
-              ) : null}
-            </button>
+            <GravityButton
+              type="submit"
+              disabled={pending}
+              className="w-full sm:w-auto"
+              text={pending ? "Analyzing" : analysis ? "Run a new review" : "Analyze my fit"}
+              variant="primary"
+              icon="arrow-right"
+              sizing={{ paddingX: 24, paddingY: 14, borderRadius: 14, fontSize: 14 }}
+              colors={{
+                background: "var(--accent-button)",
+                backgroundHover: "var(--accent-button)",
+                border: "rgba(255, 255, 255, 0.46)",
+                text: "#ffffff",
+                shadow: "rgba(47, 118, 181, 0.3)",
+              }}
+            />
           </div>
         </form>
       </section>

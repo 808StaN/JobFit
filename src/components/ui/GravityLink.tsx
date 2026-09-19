@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState, type MouseEvent } from "react";
+import { useCallback, useRef, useState, type MouseEvent, type RefObject } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring, type HTMLMotionProps } from "framer-motion";
 
 type GravityIcon = "none" | "arrow-right" | "arrow-down" | "arrow-up-right" | "download" | "chevron-right" | "plus" | "sparkle" | "lightning" | "star";
@@ -26,7 +26,7 @@ type GravityEffects = {
   textReveal?: boolean;
 };
 
-type GravityLinkProps = Omit<HTMLMotionProps<"a">, "children"> & {
+type GravityActionProps = {
   text: string;
   variant?: GravityVariant;
   icon?: GravityIcon;
@@ -36,6 +36,9 @@ type GravityLinkProps = Omit<HTMLMotionProps<"a">, "children"> & {
   sizing?: GravitySizing;
   fontFamily?: string;
 };
+
+export type GravityLinkProps = Omit<HTMLMotionProps<"a">, "children"> & GravityActionProps;
+export type GravityButtonProps = Omit<HTMLMotionProps<"button">, "children"> & GravityActionProps;
 
 const variantColors: Record<GravityVariant, GravityColors> = {
   primary: {
@@ -115,7 +118,30 @@ function RollingText({ text, isHovered, enabled, fontSize }: { text: string; isH
   );
 }
 
-export function GravityLink({
+type GravityActionOptions<T extends HTMLElement> = GravityActionProps & {
+  containerRef: RefObject<T | null>;
+  style?: HTMLMotionProps<"a">["style"];
+  onMouseMove?: (event: MouseEvent<T>) => void;
+  onMouseEnter?: (event: MouseEvent<T>) => void;
+  onMouseLeave?: (event: MouseEvent<T>) => void;
+  disabled?: boolean;
+};
+
+type GravityActionContentState = {
+  buttonFont: string;
+  fontSize: number;
+  icon: GravityIcon;
+  iconPosition: "left" | "right";
+  isHovered: boolean;
+  paddingX: number;
+  paddingY: number;
+  palette: GravityColors;
+  text: string;
+  textReveal: boolean;
+};
+
+function useGravityAction<T extends HTMLElement>({
+  containerRef,
   text,
   variant = "primary",
   icon = "arrow-right",
@@ -128,25 +154,24 @@ export function GravityLink({
   onMouseMove,
   onMouseEnter,
   onMouseLeave,
-  ...props
-}: GravityLinkProps) {
+  disabled = false,
+}: GravityActionOptions<T>) {
   const palette = { ...variantColors[variant], ...colors };
   const reduceMotion = useReducedMotion();
-  const magneticStrength = reduceMotion ? 0 : effects?.magneticStrength ?? 0.28;
-  const textReveal = reduceMotion ? false : effects?.textReveal ?? true;
+  const magneticStrength = reduceMotion || disabled ? 0 : effects?.magneticStrength ?? 0.28;
+  const textReveal = reduceMotion || disabled ? false : effects?.textReveal ?? true;
   const paddingX = sizing?.paddingX ?? 24;
   const paddingY = sizing?.paddingY ?? 12;
   const borderRadius = sizing?.borderRadius ?? 999;
   const fontSize = sizing?.fontSize ?? 14;
   const buttonFont = fontFamily || "var(--font-sans)";
   const [isHovered, setIsHovered] = useState(false);
-  const containerRef = useRef<HTMLAnchorElement | null>(null);
   const magnetX = useMotionValue(0);
   const magnetY = useMotionValue(0);
   const springX = useSpring(magnetX, { stiffness: 150, damping: 15, mass: 0.5 });
   const springY = useSpring(magnetY, { stiffness: 150, damping: 15, mass: 0.5 });
 
-  const handleMouseMove = useCallback((event: MouseEvent<HTMLAnchorElement>) => {
+  const handleMouseMove = useCallback((event: MouseEvent<T>) => {
     onMouseMove?.(event);
     const element = containerRef.current;
     if (!element || magneticStrength === 0) return;
@@ -156,74 +181,189 @@ export function GravityLink({
     const centerY = rect.top + rect.height / 2;
     magnetX.set((event.clientX - centerX) * magneticStrength);
     magnetY.set((event.clientY - centerY) * magneticStrength);
-  }, [magneticStrength, magnetX, magnetY, onMouseMove]);
+  }, [containerRef, magneticStrength, magnetX, magnetY, onMouseMove]);
 
-  const handleMouseEnter = useCallback((event: MouseEvent<HTMLAnchorElement>) => {
+  const handleMouseEnter = useCallback((event: MouseEvent<T>) => {
     onMouseEnter?.(event);
     setIsHovered(true);
   }, [onMouseEnter]);
 
-  const handleMouseLeave = useCallback((event: MouseEvent<HTMLAnchorElement>) => {
+  const handleMouseLeave = useCallback((event: MouseEvent<T>) => {
     onMouseLeave?.(event);
     setIsHovered(false);
     magnetX.set(0);
     magnetY.set(0);
   }, [magnetX, magnetY, onMouseLeave]);
 
+  const actionStyle: NonNullable<HTMLMotionProps<"a">["style"]> = {
+    ...style,
+    x: springX,
+    y: springY,
+    position: "relative",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: disabled ? "default" : "pointer",
+    borderRadius,
+    overflow: "visible",
+    isolation: "isolate",
+    color: palette.text,
+    textDecoration: "none",
+    border: `1px solid ${isHovered ? "rgba(255, 255, 255, 0.52)" : palette.border}`,
+    background: isHovered ? palette.backgroundHover : palette.background,
+    boxShadow: isHovered ? `0 8px 22px ${palette.shadow}` : "0 0 0 rgba(255, 255, 255, 0)",
+    backdropFilter: "blur(14px)",
+    WebkitBackdropFilter: "blur(14px)",
+    transition: "border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease",
+    WebkitTapHighlightColor: "transparent",
+  };
+
+  return {
+    buttonFont,
+    fontSize,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleMouseMove,
+    icon,
+    iconPosition,
+    isHovered,
+    palette,
+    paddingX,
+    paddingY,
+    reduceMotion,
+    style: actionStyle,
+    text,
+    textReveal,
+  };
+}
+
+function GravityActionContent({
+  action,
+}: {
+  action: GravityActionContentState;
+}) {
+  return (
+    <span
+      style={{
+        position: "relative",
+        zIndex: 1,
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        padding: `${action.paddingY}px ${action.paddingX}px`,
+        color: action.palette.text,
+        fontFamily: action.buttonFont,
+        fontSize: action.fontSize,
+        fontWeight: 560,
+        letterSpacing: "0.035em",
+        lineHeight: 1,
+        whiteSpace: "nowrap",
+      }}
+    >
+      {action.iconPosition === "left" ? <IconSvg name={action.icon} color={action.palette.text} /> : null}
+      <RollingText text={action.text} isHovered={action.isHovered} enabled={action.textReveal} fontSize={action.fontSize} />
+      {action.iconPosition === "right" ? <IconSvg name={action.icon} color={action.palette.text} /> : null}
+    </span>
+  );
+}
+
+export function GravityLink({
+  text,
+  variant,
+  icon,
+  iconPosition,
+  colors,
+  effects,
+  sizing,
+  fontFamily,
+  style,
+  onMouseMove,
+  onMouseEnter,
+  onMouseLeave,
+  ...props
+}: GravityLinkProps) {
+  const containerRef = useRef<HTMLAnchorElement | null>(null);
+  const action = useGravityAction<HTMLAnchorElement>({
+    containerRef,
+    text,
+    variant,
+    icon,
+    iconPosition,
+    colors,
+    effects,
+    sizing,
+    fontFamily,
+    style,
+    onMouseMove,
+    onMouseEnter,
+    onMouseLeave,
+  });
+
   return (
     <motion.a
       ref={containerRef}
-      style={{
-        ...style,
-        x: springX,
-        y: springY,
-        position: "relative",
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer",
-        borderRadius,
-        overflow: "visible",
-        isolation: "isolate",
-        color: palette.text,
-        textDecoration: "none",
-        border: `1px solid ${isHovered ? "rgba(255, 255, 255, 0.52)" : palette.border}`,
-        background: isHovered ? palette.backgroundHover : palette.background,
-        boxShadow: isHovered ? `0 8px 22px ${palette.shadow}` : "0 0 0 rgba(255, 255, 255, 0)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        transition: "border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease",
-        WebkitTapHighlightColor: "transparent",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+      style={action.style}
+      onMouseMove={action.handleMouseMove}
+      onMouseEnter={action.handleMouseEnter}
+      onMouseLeave={action.handleMouseLeave}
+      whileTap={action.reduceMotion ? undefined : { scale: 0.97 }}
       transition={{ duration: 0.15 }}
       aria-label={text}
       {...props}
     >
-      <span
-        style={{
-          position: "relative",
-          zIndex: 1,
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          padding: `${paddingY}px ${paddingX}px`,
-          color: palette.text,
-          fontFamily: buttonFont,
-          fontSize,
-          fontWeight: 560,
-          letterSpacing: "0.035em",
-          lineHeight: 1,
-          whiteSpace: "nowrap",
-        }}
-      >
-        {iconPosition === "left" ? <IconSvg name={icon} color={palette.text} /> : null}
-        <RollingText text={text} isHovered={isHovered} enabled={textReveal} fontSize={fontSize} />
-        {iconPosition === "right" ? <IconSvg name={icon} color={palette.text} /> : null}
-      </span>
+      <GravityActionContent action={action} />
     </motion.a>
+  );
+}
+
+export function GravityButton({
+  text,
+  variant,
+  icon,
+  iconPosition,
+  colors,
+  effects,
+  sizing,
+  fontFamily,
+  style,
+  onMouseMove,
+  onMouseEnter,
+  onMouseLeave,
+  disabled = false,
+  ...props
+}: GravityButtonProps) {
+  const containerRef = useRef<HTMLButtonElement | null>(null);
+  const action = useGravityAction<HTMLButtonElement>({
+    containerRef,
+    text,
+    variant,
+    icon,
+    iconPosition,
+    colors,
+    effects,
+    sizing,
+    fontFamily,
+    style,
+    onMouseMove,
+    onMouseEnter,
+    onMouseLeave,
+    disabled,
+  });
+
+  return (
+    <motion.button
+      ref={containerRef}
+      style={action.style}
+      onMouseMove={action.handleMouseMove}
+      onMouseEnter={action.handleMouseEnter}
+      onMouseLeave={action.handleMouseLeave}
+      whileTap={action.reduceMotion || disabled ? undefined : { scale: 0.97 }}
+      transition={{ duration: 0.15 }}
+      aria-label={text}
+      disabled={disabled}
+      {...props}
+    >
+      <GravityActionContent action={action} />
+    </motion.button>
   );
 }

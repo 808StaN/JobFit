@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { IconArrowRight, IconCheck, IconFileText, IconLock } from "@tabler/icons-react";
 import { GravityLink } from "@/components/ui/GravityLink";
 import { HeroShader } from "@/components/visual/HeroShader";
@@ -46,7 +45,7 @@ export default function Home() {
                 text="Analyze my fit"
                 variant="primary"
                 icon="arrow-right"
-                sizing={{ paddingX: 24, paddingY: 14, fontSize: 14 }}
+                sizing={{ paddingX: 24, paddingY: 14, borderRadius: 14, fontSize: 14 }}
                 colors={{
                   background: "var(--accent-button)",
                   backgroundHover: "var(--accent-button)",
@@ -60,7 +59,7 @@ export default function Home() {
                 text="See the output"
                 variant="secondary"
                 icon="arrow-down"
-                sizing={{ paddingX: 22, paddingY: 14, fontSize: 14 }}
+                sizing={{ paddingX: 22, paddingY: 14, borderRadius: 14, fontSize: 14 }}
                 colors={{
                   background: "color-mix(in srgb, var(--accent-button) 72%, transparent)",
                   backgroundHover: "color-mix(in srgb, var(--accent-button) 72%, transparent)",
@@ -269,10 +268,20 @@ export default function Home() {
               Check the evidence before a recruiter does.
             </h2>
           </div>
-          <Link href="/analyze" className="button-primary group w-fit">
-            Start the review
-            <IconArrowRight className="transition-transform group-hover:translate-x-0.5" size={18} stroke={1.8} aria-hidden />
-          </Link>
+          <GravityLink
+            href="/analyze"
+            text="Start the review"
+            variant="primary"
+            icon="arrow-right"
+            sizing={{ paddingX: 24, paddingY: 14, borderRadius: 14, fontSize: 14 }}
+            colors={{
+              background: "var(--accent-button)",
+              backgroundHover: "var(--accent-button)",
+              border: "rgba(255, 255, 255, 0.46)",
+              text: "#ffffff",
+              shadow: "rgba(47, 118, 181, 0.3)",
+            }}
+          />
         </div>
       </section>
     </main>
