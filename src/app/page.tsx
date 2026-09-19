@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { IconArrowRight, IconCheck, IconFileText, IconLock } from "@tabler/icons-react";
+import { GravityLink } from "@/components/ui/GravityLink";
 import { HeroShader } from "@/components/visual/HeroShader";
 
 const reviewRows = [
@@ -40,13 +41,34 @@ export default function Home() {
               Compare one CV with one role. JobFit turns the overlap into an evidence map, exposes weak claims, and tells you what to fix before you apply.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link href="/analyze" className="button-primary group sm:min-w-44">
-                Analyze my fit
-                <IconArrowRight className="transition-transform group-hover:translate-x-0.5" size={18} stroke={1.8} aria-hidden />
-              </Link>
-              <Link href="#sample-review" className="button-secondary sm:min-w-40">
-                See the output
-              </Link>
+              <GravityLink
+                href="/analyze"
+                text="Analyze my fit"
+                variant="primary"
+                icon="arrow-right"
+                sizing={{ paddingX: 24, paddingY: 14, fontSize: 14 }}
+                colors={{
+                  background: "var(--accent-button)",
+                  backgroundHover: "var(--accent-button)",
+                  border: "rgba(255, 255, 255, 0.46)",
+                  text: "#ffffff",
+                  shadow: "rgba(47, 118, 181, 0.3)",
+                }}
+              />
+              <GravityLink
+                href="#sample-review"
+                text="See the output"
+                variant="secondary"
+                icon="arrow-down"
+                sizing={{ paddingX: 22, paddingY: 14, fontSize: 14 }}
+                colors={{
+                  background: "color-mix(in srgb, var(--accent-button) 72%, transparent)",
+                  backgroundHover: "color-mix(in srgb, var(--accent-button) 72%, transparent)",
+                  border: "rgba(255, 255, 255, 0.46)",
+                  text: "#ffffff",
+                  shadow: "rgba(47, 118, 181, 0.24)",
+                }}
+              />
             </div>
             <p className="mt-5 flex items-center gap-2 text-sm text-[var(--text-muted)]">
               <IconLock size={15} stroke={1.8} aria-hidden />
