@@ -100,6 +100,17 @@ a {
   margin-inline: auto;
 }
 
+.nav-shell {
+  width: min(100% - 2rem, 80rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+  .nav-shell {
+    width: min(calc(80% - 1.6rem), 64rem);
+  }
+}
+
 .button-primary,
 .button-secondary {
   display: inline-flex;
