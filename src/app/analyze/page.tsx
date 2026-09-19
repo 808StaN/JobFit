@@ -4,6 +4,7 @@ import { AnalyzeWorkspace } from "@/components/analyze/AnalyzeWorkspace";
 export const metadata: Metadata = {
   title: "Analyze your CV",
   description: "Upload a PDF CV, paste a job description, and generate a structured fit review.",
+  alternates: { canonical: "/analyze" },
 };
 
 export default function AnalyzePage() {

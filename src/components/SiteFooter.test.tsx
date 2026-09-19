@@ -7,5 +7,7 @@ describe("SiteFooter", () => {
     render(<SiteFooter />);
     expect(screen.getByText(/Files are not stored/)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Analyze my fit" })).toHaveAttribute("href", "/analyze");
+    expect(screen.getByRole("link", { name: "Privacy" })).toHaveAttribute("href", "/privacy");
+    expect(screen.getByRole("link", { name: "Terms" })).toHaveAttribute("href", "/terms");
   });
 });

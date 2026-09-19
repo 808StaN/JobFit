@@ -1,16 +1,21 @@
 import Link from "next/link";
+import { IconArrowLeft } from "@tabler/icons-react";
 
 export default function NotFound() {
   return (
-    <main id="main" className="mx-auto max-w-7xl px-4 py-16 sm:px-8">
-      <h1 className="text-4xl font-semibold tracking-tight">Page not found</h1>
-      <p className="mt-3 max-w-[65ch] text-[var(--text-muted)]">The page you requested does not exist.</p>
-      <Link
-        href="/"
-        className="mt-6 inline-flex rounded-[12px] bg-[var(--accent-button)] px-4 py-2 font-semibold text-[var(--accent-button-text)]"
-      >
-        Back to home
-      </Link>
+    <main id="main" className="page-shell grid min-h-[64dvh] items-center py-20">
+      <div className="grid gap-8 border-y border-[var(--line)] py-12 lg:grid-cols-12 lg:items-end">
+        <p className="data-number text-[clamp(6rem,18vw,13rem)] font-semibold leading-none text-[var(--surface-strong)] lg:col-span-5" aria-hidden>404</p>
+        <div className="lg:col-span-6 lg:col-start-7">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--danger)]">Missing page</p>
+          <h1 className="mt-4 text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.06em]">This page left no evidence.</h1>
+          <p className="mt-5 max-w-[40rem] leading-7 text-[var(--text-muted)]">The address may have changed, or the page never existed.</p>
+          <Link href="/" className="button-primary mt-7 w-fit">
+            <IconArrowLeft size={18} stroke={1.8} aria-hidden />
+            Back to home
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }
