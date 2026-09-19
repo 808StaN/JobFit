@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
-import { AiServiceError, requestStructuredAi } from "@/lib/ai/openrouter";
+import { improveBulletOutputFormat } from "@/lib/ai/output-formats";
+import { AiServiceError, requestStructuredAi } from "@/lib/ai/provider";
 import { createImproveBulletPrompt } from "@/lib/ai/prompts";
 import { improveBulletSchema } from "@/lib/schemas/analysis";
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
+export const maxDuration = 120;
 
 const MAX_BULLET_LENGTH = 1_000;
 const MAX_JOB_DESCRIPTION_LENGTH = 20_000;
@@ -27,7 +28,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "One of the submitted fields is too long." }, { status: 400 });
     }
 
-    const payload = await requestStructuredAi(createImproveBulletPrompt(bullet, jobDescription));
+    const payload = await requestStructuredAi(
+      createImproveBulletPrompt(bullet, jobDescription),
+      improveBulletOutputFormat,
+    );
     const parsed = improveBulletSchema.safeParse(payload);
     if (!parsed.success) {
       return NextResponse.json({ error: "We could not validate the AI response. Please try again." }, { status: 502 });

@@ -10,9 +10,9 @@ Status: ready to deploy after secrets are set
 - [x] `npm install` completes on a clean tree
 - [x] `npm test` is the required verification command
 - [x] `npm run build` is the production compile command
-- [x] `.env.example` lists `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, and `APP_URL`
+- [x] `.env.example` lists Groq, OpenRouter, and application environment variables
 - [x] No secret is committed. `.env*` is gitignored except `.env.example`
-- [x] API routes keep the OpenRouter key on the server
+- [x] API routes keep Groq and OpenRouter keys on the server
 - [x] PDF upload is limited to 5 MB and application/pdf
 - [x] Invalid model JSON is rejected by Zod before it reaches the UI
 - [x] `/` is the landing page and `/analyze` is the working product
@@ -24,7 +24,9 @@ Status: ready to deploy after secrets are set
 2. Import the repo in Vercel as a Next.js project.
 3. Add environment variables for Production and Preview:
    - `OPENROUTER_API_KEY`
-   - `OPENROUTER_MODEL`
+   - `OPENROUTER_MODELS`
+   - `GROQ_API_KEY`
+   - `GROQ_MODEL`
    - `APP_URL` (the production origin, for example `https://jobfit.vercel.app`)
 4. Deploy.
 

@@ -1,7 +1,7 @@
 import type { Analysis } from "@/lib/schemas/analysis";
 
 export const sampleAnalysis: Analysis = {
-  overallScore: 78,
+  overallScore: 79,
   scoreBreakdown: {
     skills: 85,
     experience: 70,

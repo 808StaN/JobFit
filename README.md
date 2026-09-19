@@ -27,12 +27,14 @@ Open `http://localhost:3000`, then go to **Analyze my fit**.
 Required environment variables in `.env.local`:
 
 ```bash
+GROQ_API_KEY=your_groq_key
+GROQ_MODEL=openai/gpt-oss-20b
 OPENROUTER_API_KEY=your_openrouter_key
-OPENROUTER_MODEL=openrouter/free
+OPENROUTER_MODELS=google/gemma-4-26b-a4b-it:free,nex-agi/nex-n2.5-mini:free,google/gemma-4-31b-it:free
 APP_URL=http://localhost:3000
 ```
 
-`OPENROUTER_API_KEY` must stay server-side. Do not prefix it with `NEXT_PUBLIC_`.
+API keys must stay server-side. Do not prefix them with `NEXT_PUBLIC_`. Groq is the primary provider. Every configured OpenRouter model must use its `:free` variant and is tried only when Groq is unavailable.
 
 ## Scripts
 
@@ -55,7 +57,7 @@ CV PDF + job description
         |                 |
         |                 +-- validate file and text
         |                 +-- extract PDF text
-        |                 +-- OpenRouter JSON completion
+        |                 +-- Groq completion, then OpenRouter fallback
         |                 +-- Zod validation
         v
  structured analysis UI  ->  optional POST /api/improve-bullet
@@ -68,7 +70,9 @@ CV PDF + job description
 | `src/app/api/analyze/route.ts` | PDF extraction, prompt, Zod-checked analysis |
 | `src/app/api/improve-bullet/route.ts` | Rewrites one existing CV bullet for the same role |
 | `src/lib/ai/prompts.ts` | System instructions, untrusted-data delimiters, JSON contract |
+| `src/lib/ai/groq.ts` | Groq structured JSON client |
 | `src/lib/ai/openrouter.ts` | OpenRouter client, timeout, JSON cleanup |
+| `src/lib/ai/provider.ts` | Groq-first provider orchestration and fallback |
 | `src/lib/pdf.ts` | PDF type, size, signature, and text extraction |
 | `src/lib/schemas/analysis.ts` | Zod contracts for analysis and bullet rewrite |
 | `src/components/analyze/` | Accessible form, progress, errors, bullet rewrite |
@@ -78,7 +82,7 @@ The landing page stays on `/`. The actual product lives on `/analyze` so the mar
 
 ## AI integration
 
-JobFit uses OpenRouter's OpenAI-compatible Chat Completions API from a Next.js Route Handler. The browser never receives the API key.
+JobFit uses Groq as its primary OpenAI-compatible provider and OpenRouter as a fallback from a Next.js Route Handler. The browser never receives either API key. CV and job-description text is sent to Groq first and to OpenRouter only if Groq cannot complete the request.
 
 The analysis prompt asks the model to:
 
@@ -88,7 +92,7 @@ The analysis prompt asks the model to:
 - avoid predicting whether the candidate will be hired
 - return JSON that matches `analysisSchema`
 
-If OpenRouter is down, times out, returns empty content, or returns JSON that fails Zod, the API responds with a readable error and the UI stays on a safe error state.
+If Groq is unavailable, JobFit tries OpenRouter. If both providers fail, time out, or return invalid output, the API responds with a readable error and the UI stays on a safe error state.
 
 The optional **Improve** action rewrites one existing bullet against the same job description. It can clarify language. It cannot add experience that the original bullet does not support.
 
@@ -127,7 +131,7 @@ See `docs/deployment-checklist.md`. The intended host is Vercel.
 
 1. Push this repository to GitHub.
 2. Import the project in Vercel.
-3. Set `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, and `APP_URL`.
+3. Set `OPENROUTER_API_KEY`, `OPENROUTER_MODELS`, and `APP_URL`.
 4. Deploy the production branch.
 5. Confirm `/` and `/analyze` load, then run one real analysis.
 

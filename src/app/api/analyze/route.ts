@@ -1,13 +1,73 @@
 import { NextResponse } from "next/server";
-import { createAnalysisPrompt } from "@/lib/ai/prompts";
-import { AiServiceError, requestStructuredAi } from "@/lib/ai/openrouter";
+import { analysisOutputFormat } from "@/lib/ai/output-formats";
+import { createAnalysisPrompt, createRepairAnalysisPrompt } from "@/lib/ai/prompts";
+import { AiServiceError, isRetryableAiOutputError, requestStructuredAi } from "@/lib/ai/provider";
 import { extractCvText, CvFileError } from "@/lib/pdf";
-import { analysisSchema } from "@/lib/schemas/analysis";
+import { formatAnalysisIssues, parseAnalysis } from "@/lib/schemas/normalize";
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
+export const maxDuration = 120;
 
 const MAX_JOB_DESCRIPTION_LENGTH = 20_000;
+
+async function analyzeWithRetry(cvText: string, jobDescription: string) {
+  let payload: unknown;
+
+  try {
+    payload = await requestStructuredAi(createAnalysisPrompt(cvText, jobDescription), analysisOutputFormat);
+  } catch (error) {
+    if (!isRetryableAiOutputError(error)) {
+      throw error;
+    }
+
+    console.warn("[analyze] Retrying an invalid provider response", {
+      cvLength: cvText.length,
+      jobDescriptionLength: jobDescription.length,
+    });
+    payload = await requestStructuredAi(
+      createRepairAnalysisPrompt(cvText, jobDescription, error.message),
+      analysisOutputFormat,
+    );
+    const retryResult = parseAnalysis(payload);
+    if (retryResult.success) {
+      return retryResult.data;
+    }
+
+    console.warn("[analyze] Retry response failed validation", {
+      cvLength: cvText.length,
+      jobDescriptionLength: jobDescription.length,
+      issues: formatAnalysisIssues(retryResult),
+    });
+    return null;
+  }
+
+  const firstPass = parseAnalysis(payload);
+  if (firstPass.success) {
+    return firstPass.data;
+  }
+
+  const issues = formatAnalysisIssues(firstPass);
+  console.warn("[analyze] Retrying a response that failed validation", {
+    cvLength: cvText.length,
+    jobDescriptionLength: jobDescription.length,
+    issues,
+  });
+  const repaired = await requestStructuredAi(
+    createRepairAnalysisPrompt(cvText, jobDescription, issues, payload),
+    analysisOutputFormat,
+  );
+  const secondPass = parseAnalysis(repaired);
+  if (secondPass.success) {
+    return secondPass.data;
+  }
+
+  console.warn("[analyze] Retry response also failed validation", {
+    cvLength: cvText.length,
+    jobDescriptionLength: jobDescription.length,
+    issues: formatAnalysisIssues(secondPass),
+  });
+  return null;
+}
 
 export async function POST(request: Request) {
   try {
@@ -28,17 +88,16 @@ export async function POST(request: Request) {
     }
 
     const cvText = await extractCvText(cv);
-    const payload = await requestStructuredAi(createAnalysisPrompt(cvText, jobDescription.trim()));
-    const parsed = analysisSchema.safeParse(payload);
+    const analysis = await analyzeWithRetry(cvText, jobDescription.trim());
 
-    if (!parsed.success) {
+    if (!analysis) {
       return NextResponse.json(
         { error: "We could not validate the AI response. Please try again." },
         { status: 502 },
       );
     }
 
-    return NextResponse.json({ analysis: parsed.data });
+    return NextResponse.json({ analysis });
   } catch (error) {
     if (error instanceof CvFileError) {
       return NextResponse.json({ error: error.message }, { status: 400 });

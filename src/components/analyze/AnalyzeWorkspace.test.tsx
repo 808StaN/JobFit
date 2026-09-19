@@ -39,7 +39,7 @@ describe("AnalyzeWorkspace", () => {
     await user.click(screen.getByRole("button", { name: "Analyze my fit" }));
 
     expect(await screen.findByRole("status")).toHaveTextContent("Analyzing your CV");
-    expect(await screen.findByText("78%")).toBeInTheDocument();
+    expect(await screen.findByText("79%")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Improve a CV bullet" })).toBeInTheDocument();
   });
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
@@ -18,6 +19,42 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <Script id="remove-extension-hydration-attributes" strategy="beforeInteractive">
+          {`(() => {
+          const knownAttributes = ["bis_skin_checked", "bis_register"];
+          const isExtensionAttribute = (name) => knownAttributes.includes(name) || name.startsWith("__processed_");
+          const clean = (element) => {
+            for (const attribute of Array.from(element.attributes)) {
+              if (isExtensionAttribute(attribute.name)) {
+                element.removeAttribute(attribute.name);
+              }
+            }
+          };
+          const cleanTree = (root) => {
+            if (root.nodeType !== Node.ELEMENT_NODE) return;
+            clean(root);
+            root.querySelectorAll("*").forEach(clean);
+          };
+
+          cleanTree(document.documentElement);
+          new MutationObserver((records) => {
+            for (const record of records) {
+              if (record.type === "attributes" && record.target instanceof Element) {
+                clean(record.target);
+              }
+              for (const node of record.addedNodes) {
+                cleanTree(node);
+              }
+            }
+          }).observe(document.documentElement, {
+            attributes: true,
+            childList: true,
+            subtree: true,
+          });
+        })();`}
+        </Script>
+      </head>
       <body className={`${geist.variable} ${geistMono.variable} antialiased`}>
         <a className="skip-link" href="#main">
           Skip to content

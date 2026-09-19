@@ -115,16 +115,20 @@ export function AnalysisResults({ analysis }: { analysis: Analysis }) {
             <IconTargetArrow size={23} stroke={1.8} className="text-[var(--accent)]" aria-hidden />
             <h2 id="requirements-heading" className="text-2xl font-semibold tracking-tight">Job requirements</h2>
           </div>
-          <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-            {analysis.jobRequirements.map((requirement) => (
-              <li key={`${requirement.type}-${requirement.name}`} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4">
-                <p className="font-semibold">{requirement.name}</p>
-                <p className="mt-1 text-sm text-[var(--text-muted)]">
-                  {requirement.type === "required" ? "Required" : "Preferred"} · {requirement.found ? "Found in CV" : "Not found in CV"}
-                </p>
-              </li>
-            ))}
-          </ul>
+          {analysis.jobRequirements.length === 0 ? (
+            <p className="mt-5 text-[var(--text-muted)]">No job requirements were returned for this analysis.</p>
+          ) : (
+            <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+              {analysis.jobRequirements.map((requirement) => (
+                <li key={`${requirement.type}-${requirement.name}`} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4">
+                  <p className="font-semibold">{requirement.name}</p>
+                  <p className="mt-1 text-sm text-[var(--text-muted)]">
+                    {requirement.type === "required" ? "Required" : "Preferred"} · {requirement.found ? "Found in CV" : "Not found in CV"}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
 
         <section aria-labelledby="relevance-heading">
@@ -132,15 +136,19 @@ export function AnalysisResults({ analysis }: { analysis: Analysis }) {
             <IconCircleDashed size={23} stroke={1.8} className="text-[var(--accent)]" aria-hidden />
             <h2 id="relevance-heading" className="text-2xl font-semibold tracking-tight">Relevant experience</h2>
           </div>
-          <ul className="mt-5 grid gap-3">
-            {analysis.experienceRelevance.map((item) => (
-              <li key={item.name} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4">
-                <p className="font-semibold">{item.name}</p>
-                <p className="mt-1 text-sm font-medium capitalize text-[var(--accent)]">{item.relevance} relevance</p>
-                <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">{item.explanation}</p>
-              </li>
-            ))}
-          </ul>
+          {analysis.experienceRelevance.length === 0 ? (
+            <p className="mt-5 text-[var(--text-muted)]">No relevant experience was identified for this role.</p>
+          ) : (
+            <ul className="mt-5 grid gap-3">
+              {analysis.experienceRelevance.map((item) => (
+                <li key={item.name} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4">
+                  <p className="font-semibold">{item.name}</p>
+                  <p className="mt-1 text-sm font-medium capitalize text-[var(--accent)]">{item.relevance} relevance</p>
+                  <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">{item.explanation}</p>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
 
