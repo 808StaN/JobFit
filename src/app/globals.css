@@ -1,38 +1,45 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f7f5;
-  --surface: #fbfcfb;
-  --surface-muted: #e8efe9;
-  --text: #17201c;
-  --text-muted: #4a5852;
-  --line: #cfd8d2;
-  --accent: #087d62;
-  --accent-hover: #05664f;
-  --accent-soft: #d7efe6;
-  --accent-button: #05664f;
-  --accent-button-text: #f6fffb;
-  --danger: #9f2d28;
-  --radius-control: 12px;
-  --radius-panel: 16px;
+  --background: #edf1ec;
+  --surface: #f8faf7;
+  --surface-muted: #e0e7e1;
+  --surface-strong: #d2ddd5;
+  --text: #13211b;
+  --text-muted: #526159;
+  --line: #a9b8ae;
+  --line-strong: #718279;
+  --accent: #0d7659;
+  --accent-hover: #095d47;
+  --accent-soft: #cce6da;
+  --accent-button: #0a614a;
+  --accent-button-text: #f5fbf7;
+  --danger: #963932;
+  --shadow: rgba(35, 60, 49, 0.14);
+  --radius-control: 10px;
+  --radius-panel: 20px;
+  --radius-display: 28px;
   --z-skip: 40;
   --z-header: 20;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #121a16;
-    --surface: #18231e;
-    --surface-muted: #213027;
+    --background: #0d1511;
+    --surface: #131f19;
+    --surface-muted: #1d2c24;
+    --surface-strong: #273b31;
     --text: #eef5f1;
-    --text-muted: #b2c0b8;
-    --line: #34433a;
-    --accent: #3aa37f;
-    --accent-hover: #4db892;
-    --accent-soft: #173e30;
-    --accent-button: #05664f;
-    --accent-button-text: #f6fffb;
+    --text-muted: #adbbb3;
+    --line: #5e7167;
+    --line-strong: #87978e;
+    --accent: #73cba5;
+    --accent-hover: #90dbbb;
+    --accent-soft: #1c4a38;
+    --accent-button: #b9e8d3;
+    --accent-button-text: #10251c;
     --danger: #f08b84;
+    --shadow: rgba(1, 10, 6, 0.32);
   }
 }
 
@@ -43,6 +50,7 @@
 html {
   background: var(--background);
   color: var(--text);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -50,13 +58,107 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--text);
-  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+a,
+button,
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
 }
 
 button,
 input,
 textarea {
   font: inherit;
+}
+
+button,
+a {
+  transition-duration: 220ms;
+  transition-property: color, background-color, border-color, opacity, transform;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-shell {
+  width: min(100% - 2rem, 80rem);
+  margin-inline: auto;
+}
+
+.button-primary,
+.button-secondary {
+  display: inline-flex;
+  min-height: 2.875rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-control);
+  padding: 0.7rem 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.button-primary {
+  background: var(--accent-button);
+  color: var(--accent-button-text);
+  box-shadow: 0 0.5rem 1.5rem -0.75rem var(--shadow);
+}
+
+.button-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.button-secondary {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  color: var(--text);
+}
+
+.button-secondary:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-muted);
+}
+
+.button-primary:active,
+.button-secondary:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.button-primary:disabled,
+.button-secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+  transform: none;
+}
+
+.data-number {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.05em;
+}
+
+.surface-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  box-shadow: 0 1.5rem 4rem -3rem var(--shadow);
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.text-balance {
+  text-wrap: balance;
 }
 
 :focus-visible {
@@ -89,5 +191,11 @@ textarea {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (min-width: 640px) {
+  .page-shell {
+    width: min(100% - 4rem, 80rem);
   }
 }
