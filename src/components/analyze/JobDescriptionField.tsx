@@ -18,7 +18,6 @@ export function JobDescriptionField({ value, error, disabled, onChange }: JobDes
 
   return (
     <div className="grid gap-3">
-      <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">02 / Target role</p>
       <label htmlFor={inputId} className="text-lg font-semibold tracking-[-0.02em]">
         Job description
       </label>

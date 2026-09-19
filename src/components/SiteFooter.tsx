@@ -12,8 +12,7 @@ export function SiteFooter() {
         </div>
 
         <div className="lg:col-span-3 lg:col-start-7">
-          <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">Product</p>
-          <div className="mt-3 flex flex-col items-start gap-2 text-sm font-semibold">
+          <div className="flex flex-col items-start gap-2 text-sm font-semibold">
             <Link href="/analyze" className="hover:text-[var(--accent)]">Analyze my fit</Link>
             <Link href="/privacy" className="hover:text-[var(--accent)]">Privacy</Link>
             <Link href="/terms" className="hover:text-[var(--accent)]">Terms</Link>
@@ -21,14 +20,13 @@ export function SiteFooter() {
         </div>
 
         <div className="lg:col-span-3">
-          <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">AI processing</p>
-          <p className="mt-3 text-sm leading-6 text-[var(--text-muted)]">
+          <p className="text-sm leading-6 text-[var(--text-muted)]">
             Analysis uses Groq as the primary provider and OpenRouter only as a fallback. Review sensitive information before uploading.
           </p>
         </div>
       </div>
       <div className="border-t border-[var(--line)]">
-        <div className="page-shell flex flex-col gap-2 py-4 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-[var(--text-muted)] sm:flex-row sm:items-center sm:justify-between">
+        <div className="page-shell flex flex-col gap-2 py-4 text-xs text-[var(--text-muted)] sm:flex-row sm:items-center sm:justify-between">
           <p>JobFit / application evidence review</p>
           <p>Built for informed edits, not hiring predictions</p>
         </div>

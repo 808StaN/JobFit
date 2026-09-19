@@ -68,8 +68,7 @@ export function AnalyzeWorkspace() {
       <section aria-labelledby="inputs-heading" className="surface-panel overflow-hidden">
         <div className="flex flex-col gap-2 border-b border-[var(--line)] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
           <div>
-            <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Application inputs</p>
-            <h2 id="inputs-heading" className="mt-1 text-xl font-semibold tracking-[-0.025em]">Compare your documents</h2>
+            <h2 id="inputs-heading" className="text-xl font-semibold tracking-[-0.025em]">Compare your documents</h2>
           </div>
           <p className="text-sm text-[var(--text-muted)]">PDF up to 5 MB · 20,000 characters</p>
         </div>

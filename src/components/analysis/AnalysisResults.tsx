@@ -19,10 +19,8 @@ export function AnalysisResults({ analysis }: { analysis: Analysis }) {
       <div className="surface-panel overflow-hidden">
         <div className="flex flex-col gap-2 border-b border-[var(--line)] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
           <div>
-            <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Evidence report</p>
-            <h2 id="results-heading" className="mt-1 text-xl font-semibold tracking-[-0.025em]">Your CV-to-role review</h2>
+            <h2 id="results-heading" className="text-xl font-semibold tracking-[-0.025em]">Your CV-to-role review</h2>
           </div>
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">Score range / 0–100</p>
         </div>
 
         <div className="grid lg:grid-cols-[0.8fr_1.2fr]">
@@ -55,8 +53,7 @@ export function AnalysisResults({ analysis }: { analysis: Analysis }) {
       <section className="grid gap-8 rounded-[var(--radius-display)] bg-[var(--accent-soft)] p-6 sm:p-8 lg:grid-cols-12 lg:gap-10" aria-labelledby="plan-heading">
         <div className="lg:col-span-4">
           <IconListCheck size={28} stroke={1.7} className="text-[var(--accent)]" aria-hidden />
-          <p className="mt-5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Start here</p>
-          <h2 id="plan-heading" className="mt-2 text-3xl font-semibold tracking-[-0.045em]">Your next steps</h2>
+          <h2 id="plan-heading" className="mt-5 text-3xl font-semibold tracking-[-0.045em]">Your next steps</h2>
           <p className="mt-3 max-w-sm text-sm leading-6 text-[var(--text-muted)]">Work top to bottom before making lower-impact edits.</p>
         </div>
         <ol className="lg:col-span-7 lg:col-start-6">
@@ -72,8 +69,7 @@ export function AnalysisResults({ analysis }: { analysis: Analysis }) {
       <section aria-labelledby="suggestions-heading">
         <div className="grid gap-5 border-b border-[var(--line-strong)] pb-6 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
-            <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Recommended edits</p>
-            <h2 id="suggestions-heading" className="mt-2 text-3xl font-semibold tracking-[-0.045em]">What to improve</h2>
+            <h2 id="suggestions-heading" className="text-3xl font-semibold tracking-[-0.045em]">What to improve</h2>
           </div>
           <p className="text-sm leading-6 text-[var(--text-muted)] lg:col-span-5">Specific changes ordered by their likely value for this application.</p>
         </div>
@@ -102,8 +98,7 @@ export function AnalysisResults({ analysis }: { analysis: Analysis }) {
           <div className="flex items-center gap-3 border-b border-[var(--line-strong)] pb-4">
             <IconCircleCheck size={22} stroke={1.8} className="text-[var(--accent)]" aria-hidden />
             <div>
-              <p className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Supported by the CV</p>
-              <h2 id="matched-heading" className="mt-1 text-2xl font-semibold tracking-[-0.035em]">Matched skills</h2>
+              <h2 id="matched-heading" className="text-2xl font-semibold tracking-[-0.035em]">Matched skills</h2>
             </div>
           </div>
           {analysis.matchedSkills.length === 0 ? (
@@ -124,8 +119,7 @@ export function AnalysisResults({ analysis }: { analysis: Analysis }) {
           <div className="flex items-center gap-3 border-b border-[var(--line-strong)] pb-4">
             <IconAlertTriangle size={22} stroke={1.8} className="text-[var(--danger)]" aria-hidden />
             <div>
-              <p className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Needs attention</p>
-              <h2 id="gaps-heading" className="mt-1 text-2xl font-semibold tracking-[-0.035em]">Skills to address</h2>
+              <h2 id="gaps-heading" className="text-2xl font-semibold tracking-[-0.035em]">Skills to address</h2>
             </div>
           </div>
           {analysis.gaps.length === 0 ? (
@@ -149,7 +143,6 @@ export function AnalysisResults({ analysis }: { analysis: Analysis }) {
       <section aria-labelledby="strengths-heading">
         <div className="grid gap-4 border-b border-[var(--line-strong)] pb-5 sm:grid-cols-[1fr_auto] sm:items-end">
           <h2 id="strengths-heading" className="text-3xl font-semibold tracking-[-0.045em]">Strengths to keep visible</h2>
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--text-muted)]">Role-specific evidence</p>
         </div>
         {analysis.strengths.length === 0 ? (
           <p className="py-7 text-[var(--text-muted)]">No standout strengths were identified for this role.</p>

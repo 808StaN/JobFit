@@ -17,10 +17,9 @@ export default function TermsPage() {
       </Link>
       <header className="mt-10 grid gap-8 border-b border-[var(--line-strong)] pb-10 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-8">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Policy / 02</p>
-          <h1 className="mt-4 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">Terms</h1>
+          <h1 className="text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">Terms</h1>
         </div>
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--text-muted)] lg:col-span-4">Effective September 19, 2026</p>
+        <p className="text-sm text-[var(--text-muted)] lg:col-span-4">Effective September 19, 2026</p>
       </header>
 
       <div className="grid gap-10 pt-12 lg:grid-cols-12">

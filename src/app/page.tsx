@@ -29,7 +29,7 @@ const outcomes = [
 export default function Home() {
   return (
     <main id="main">
-      <section className="relative isolate overflow-hidden border-b border-[var(--line)]">
+      <section className="relative isolate overflow-hidden">
         <HeroShader />
         <div className="page-shell relative grid min-h-[42rem] items-center gap-12 py-14 sm:py-20 lg:grid-cols-12 lg:gap-8 lg:py-24">
           <div className="lg:col-span-7 lg:pr-10">
@@ -59,10 +59,9 @@ export default function Home() {
             aria-label="Illustrative JobFit review"
             className="surface-panel relative lg:col-span-5 lg:translate-y-8"
           >
-            <div className="flex items-center justify-between border-b border-[var(--line)] px-5 py-4 sm:px-7">
-              <div>
-                <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">Sample review / 0048</p>
-                <h2 className="mt-1 font-semibold tracking-[-0.025em]">Product designer · Growth</h2>
+              <div className="flex items-center justify-between border-b border-[var(--line)] px-5 py-4 sm:px-7">
+                <div>
+                  <h2 className="font-semibold tracking-[-0.025em]">Product designer · Growth</h2>
               </div>
               <span className="grid size-9 place-items-center rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">
                 <IconFileText size={18} stroke={1.8} aria-hidden />
@@ -73,8 +72,7 @@ export default function Home() {
               <div className="grid grid-cols-[auto_1fr] items-end gap-6">
                 <p className="data-number text-7xl font-semibold leading-none sm:text-8xl">68</p>
                 <div className="pb-1">
-                  <p className="font-mono text-xs uppercase tracking-[0.16em] text-[var(--text-muted)]">Fit signal / 100</p>
-                  <p className="mt-2 max-w-44 text-sm leading-5 text-[var(--text-muted)]">Promising overlap with two fixable evidence gaps.</p>
+                  <p className="max-w-44 text-sm leading-5 text-[var(--text-muted)]">Promising overlap with two fixable evidence gaps.</p>
                 </div>
               </div>
 
@@ -88,8 +86,7 @@ export default function Home() {
               </dl>
 
               <div className="rounded-[var(--radius-control)] bg-[var(--surface-muted)] p-4">
-                <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">First action</p>
-                <p className="mt-2 text-sm font-semibold leading-6">Quantify the checkout redesign result before adding more skills.</p>
+                <p className="text-sm font-semibold leading-6">Quantify the checkout redesign result before adding more skills.</p>
               </div>
             </div>
           </article>
@@ -99,8 +96,7 @@ export default function Home() {
       <section aria-labelledby="review-heading" className="page-shell py-24 sm:py-32">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">What you receive</p>
-            <h2 id="review-heading" className="mt-5 max-w-[12ch] text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.055em] sm:text-5xl">
+            <h2 id="review-heading" className="max-w-[12ch] text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.055em] sm:text-5xl">
               A review built for one decision.
             </h2>
             <p className="mt-6 max-w-[31rem] text-pretty leading-7 text-[var(--text-muted)]">
@@ -128,10 +124,9 @@ export default function Home() {
               <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(var(--line)_1px,transparent_1px),linear-gradient(90deg,var(--line)_1px,transparent_1px)] [background-size:3rem_3rem] [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden />
               <div className="relative flex items-center justify-between gap-4 border-b border-[var(--line)] pb-4">
                 <div>
-                  <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Evidence pipeline</p>
-                  <p className="mt-1 text-sm font-semibold">One focused comparison</p>
+                  <p className="text-sm font-semibold">One focused comparison</p>
                 </div>
-                <span className="flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-[var(--text-muted)]">
+                <span className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
                   <span className="size-2 animate-pulse rounded-full bg-[var(--accent)]" aria-hidden />
                   Ready
                 </span>
@@ -145,7 +140,6 @@ export default function Home() {
                     </span>
                     <div>
                       <p className="text-sm font-semibold">CV.pdf</p>
-                      <p className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-[var(--text-muted)]">Source evidence</p>
                     </div>
                   </div>
                   <div className="mt-4 grid gap-3" aria-hidden>
@@ -154,7 +148,7 @@ export default function Home() {
                     <span className="h-2 w-full rounded-full bg-[var(--accent-soft)]" />
                     <span className="h-2 w-2/3 rounded-full bg-[var(--surface-strong)]" />
                   </div>
-                  <p className="mt-5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">14 evidence points</p>
+                  <p className="mt-5 text-xs font-semibold text-[var(--accent)]">14 evidence points</p>
                 </div>
 
                 <span className="mx-auto grid size-10 rotate-90 place-items-center rounded-full border border-[var(--line-strong)] bg-[var(--surface)] text-[var(--accent)] sm:rotate-0" aria-hidden>
@@ -162,7 +156,6 @@ export default function Home() {
                 </span>
 
                 <div className="rounded-[var(--radius-control)] border border-[var(--line)] bg-[var(--background)] p-4">
-                  <p className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">Role requirements</p>
                   <ul className="mt-3 grid gap-2.5 text-sm">
                     <li className="flex items-center justify-between gap-3 border-b border-[var(--line)] pb-2.5">
                       Product strategy
@@ -186,14 +179,13 @@ export default function Home() {
                   <p className="font-semibold">Evidence report ready</p>
                   <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">7 matches · 2 priority gaps · 3 next steps</p>
                 </div>
-                <span className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">Fit / 100</span>
+                <span className="text-xs font-semibold text-[var(--accent)]">Fit / 100</span>
               </div>
             </div>
           </div>
 
           <div className="pt-5 lg:col-span-4 lg:col-start-9 lg:pt-0">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">One focused pass</p>
-            <h2 id="process-heading" className="mt-5 text-balance text-4xl font-semibold leading-[1.03] tracking-[-0.055em] sm:text-5xl">
+            <h2 id="process-heading" className="text-balance text-4xl font-semibold leading-[1.03] tracking-[-0.055em] sm:text-5xl">
               From PDF to an edit plan.
             </h2>
             <ol className="mt-9 grid gap-6">
@@ -226,8 +218,7 @@ export default function Home() {
       <section aria-labelledby="guardrail-heading" className="page-shell py-24 sm:py-32">
         <div className="grid gap-10 border-t border-[var(--line-strong)] pt-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--danger)]">A deliberate limit</p>
-            <h2 id="guardrail-heading" className="mt-5 max-w-[15ch] text-balance text-4xl font-semibold leading-[1.03] tracking-[-0.055em] sm:text-5xl">
+            <h2 id="guardrail-heading" className="max-w-[15ch] text-balance text-4xl font-semibold leading-[1.03] tracking-[-0.055em] sm:text-5xl">
               Better evidence, never invented experience.
             </h2>
           </div>
@@ -252,8 +243,7 @@ export default function Home() {
       <section className="border-t border-[var(--line)] bg-[var(--accent-soft)]">
         <div className="page-shell grid gap-8 py-16 sm:py-20 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Your next application</p>
-            <h2 className="mt-4 max-w-[17ch] text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.055em] sm:text-5xl">
+            <h2 className="max-w-[17ch] text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.055em] sm:text-5xl">
               Check the evidence before a recruiter does.
             </h2>
           </div>

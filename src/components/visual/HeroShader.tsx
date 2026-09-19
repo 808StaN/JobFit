@@ -11,7 +11,7 @@ export function HeroShader() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 overflow-hidden bg-[radial-gradient(circle_at_76%_20%,#b9ddf8,transparent_45%),linear-gradient(145deg,#f8fbff,#dcecf9)]"
+      className="hero-shader pointer-events-none absolute inset-0 overflow-hidden bg-[radial-gradient(circle_at_76%_20%,#b9ddf8,transparent_45%),linear-gradient(145deg,#f8fbff,#dcecf9)]"
     >
       <HeroShaderCanvas />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--surface)_0%,color-mix(in_srgb,var(--surface)_70%,transparent)_38%,transparent_72%)]" />

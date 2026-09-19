@@ -25,7 +25,6 @@ export function CvUpload({ file, error, disabled, onFileChange }: CvUploadProps)
 
   return (
     <div className="grid gap-3">
-      <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">01 / Source document</p>
       <label htmlFor={inputId} className="text-lg font-semibold tracking-[-0.02em]">
         CV
       </label>

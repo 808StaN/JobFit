@@ -77,8 +77,7 @@ export function ImproveBullet({ jobDescription }: ImproveBulletProps) {
     <section className="surface-panel overflow-hidden" aria-labelledby="improve-heading">
       <div className="grid gap-4 border-b border-[var(--line)] px-5 py-6 sm:px-7 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-7">
-          <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Follow-up tool</p>
-          <h2 id="improve-heading" className="mt-2 text-3xl font-semibold tracking-[-0.04em]">
+          <h2 id="improve-heading" className="text-3xl font-semibold tracking-[-0.04em]">
             Improve a CV bullet
           </h2>
         </div>
@@ -128,8 +127,7 @@ export function ImproveBullet({ jobDescription }: ImproveBulletProps) {
       ) : null}
       {result ? (
         <div className="border-t border-[var(--line)] bg-[var(--accent-soft)] px-5 py-6 sm:px-7">
-          <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Suggested rewrite</p>
-          <p className="mt-3 max-w-[58rem] text-lg font-semibold leading-8">{result.improvedBullet}</p>
+          <p className="max-w-[58rem] text-lg font-semibold leading-8">{result.improvedBullet}</p>
           <p className="mt-3 max-w-[58rem] text-sm leading-6 text-[var(--text-muted)]">{result.rationale}</p>
           <button
             type="button"
