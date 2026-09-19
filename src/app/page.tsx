@@ -31,7 +31,7 @@ export default function Home() {
     <main id="main">
       <section className="relative isolate overflow-hidden">
         <HeroShader />
-        <div className="page-shell relative grid min-h-[42rem] items-center gap-12 py-14 sm:py-20 lg:grid-cols-12 lg:gap-8 lg:py-24">
+        <div className="page-shell relative grid min-h-[46rem] items-center gap-12 pb-16 pt-28 sm:min-h-[48rem] sm:pb-20 sm:pt-32 lg:min-h-[49rem] lg:grid-cols-12 lg:gap-8 lg:pb-24 lg:pt-36">
           <div className="lg:col-span-7 lg:pr-10">
             <h1 className="max-w-[12ch] text-balance text-[clamp(3.15rem,7vw,6.8rem)] font-semibold leading-[0.91] tracking-[-0.072em] text-[var(--text)]">
               Know what your CV can prove.

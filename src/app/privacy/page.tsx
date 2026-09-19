@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main id="main" className="page-shell pb-24 pt-12 sm:pb-32 sm:pt-16">
+    <main id="main" className="page-shell pb-24 pt-28 sm:pb-32 sm:pt-32">
       <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--text-muted)] hover:text-[var(--text)]">
         <IconArrowLeft size={17} stroke={1.8} aria-hidden />
         Back to home
