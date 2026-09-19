@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import { IconArrowRight } from "@tabler/icons-react";
 import { AnalysisResults } from "@/components/analysis/AnalysisResults";
 import { AnalysisProgress } from "@/components/analyze/AnalysisProgress";
 import { CvUpload } from "@/components/analyze/CvUpload";
@@ -23,9 +24,7 @@ export function AnalyzeWorkspace() {
   const [requestError, setRequestError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
-  const [progressStep, setProgressStep] = useState(0);
-
-  const canSubmit = useMemo(() => !pending, [pending]);
+  const [analyzedJobDescription, setAnalyzedJobDescription] = useState("");
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,14 +40,10 @@ export function AnalyzeWorkspace() {
 
     const body = new FormData();
     body.append("cv", cvFile);
-    body.append("jobDescription", jobDescription.trim());
+    const submittedJobDescription = jobDescription.trim();
+    body.append("jobDescription", submittedJobDescription);
 
     setPending(true);
-    setAnalysis(null);
-    setProgressStep(0);
-    const timer = window.setInterval(() => {
-      setProgressStep((step) => Math.min(step + 1, 3));
-    }, 900);
 
     try {
       const response = await fetch("/api/analyze", { method: "POST", body });
@@ -60,50 +55,70 @@ export function AnalyzeWorkspace() {
       }
 
       setAnalysis(payload.analysis);
+      setAnalyzedJobDescription(submittedJobDescription);
     } catch {
       setRequestError("We could not analyze your CV right now. Please try again.");
     } finally {
-      window.clearInterval(timer);
       setPending(false);
     }
   }
 
   return (
-    <div className="grid gap-10">
-      <form className="grid gap-6" onSubmit={onSubmit} noValidate>
-        <CvUpload
-          file={cvFile}
-          error={cvError}
-          disabled={pending}
-          onFileChange={(file) => {
-            setCvFile(file);
-            setCvError(null);
-          }}
-        />
-        <JobDescriptionField
-          value={jobDescription}
-          error={jobError}
-          disabled={pending}
-          onChange={(value) => {
-            setJobDescription(value);
-            setJobError(null);
-          }}
-        />
-        <button
-          type="submit"
-          disabled={!canSubmit}
-          className="w-fit rounded-[12px] bg-[var(--accent-button)] px-5 py-3 font-semibold text-[var(--accent-button-text)] transition hover:bg-[var(--accent-hover)] active:scale-[0.98] disabled:opacity-60"
-        >
-          {pending ? "Analyzing" : "Analyze my fit"}
-        </button>
-      </form>
+    <div className="grid gap-12 sm:gap-16">
+      <section aria-labelledby="inputs-heading" className="surface-panel overflow-hidden">
+        <div className="flex flex-col gap-2 border-b border-[var(--line)] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+          <div>
+            <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Application inputs</p>
+            <h2 id="inputs-heading" className="mt-1 text-xl font-semibold tracking-[-0.025em]">Compare your documents</h2>
+          </div>
+          <p className="text-sm text-[var(--text-muted)]">PDF up to 5 MB · 20,000 characters</p>
+        </div>
 
-      {pending ? <AnalysisProgress activeStep={progressStep} /> : null}
+        <form className="grid" onSubmit={onSubmit} noValidate>
+          <div className="grid lg:grid-cols-[0.82fr_1.18fr]">
+            <div className="border-b border-[var(--line)] p-5 sm:p-7 lg:border-b-0 lg:border-r">
+              <CvUpload
+                file={cvFile}
+                error={cvError}
+                disabled={pending}
+                onFileChange={(file) => {
+                  setCvFile(file);
+                  setCvError(null);
+                }}
+              />
+            </div>
+            <div className="p-5 sm:p-7">
+              <JobDescriptionField
+                value={jobDescription}
+                error={jobError}
+                disabled={pending}
+                onChange={(value) => {
+                  setJobDescription(value);
+                  setJobError(null);
+                }}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-4 border-t border-[var(--line)] bg-[var(--surface-muted)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+            <p className="max-w-xl text-sm leading-6 text-[var(--text-muted)]">
+              The result measures evidence in this CV, not your overall suitability or hiring odds.
+            </p>
+            <button type="submit" disabled={pending} className="button-primary group w-full sm:w-auto">
+              {pending ? "Analyzing" : analysis ? "Run a new review" : "Analyze my fit"}
+              {!pending ? (
+                <IconArrowRight className="transition-transform group-hover:translate-x-0.5" size={18} stroke={1.8} aria-hidden />
+              ) : null}
+            </button>
+          </div>
+        </form>
+      </section>
+
+      {pending ? <AnalysisProgress hasPreviousResult={Boolean(analysis)} /> : null}
       {requestError ? <ErrorMessage>{requestError}</ErrorMessage> : null}
       {analysis ? (
-        <div className="grid gap-10">
+        <div className="grid gap-16">
           <AnalysisResults analysis={analysis} />
-          <ImproveBullet jobDescription={jobDescription} />
+          <ImproveBullet jobDescription={analyzedJobDescription} />
         </div>
       ) : null}
     </div>

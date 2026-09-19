@@ -4,8 +4,13 @@ import { AnalysisProgress } from "@/components/analyze/AnalysisProgress";
 
 describe("AnalysisProgress", () => {
   it("announces the loading state to assistive tech", () => {
-    render(<AnalysisProgress activeStep={2} />);
+    render(<AnalysisProgress />);
     expect(screen.getByRole("status")).toHaveTextContent("Analyzing your CV");
-    expect(screen.getByText(/Comparing skills, in progress/)).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("reading both documents");
+  });
+
+  it("explains that the previous result remains visible", () => {
+    render(<AnalysisProgress hasPreviousResult />);
+    expect(screen.getByRole("status")).toHaveTextContent("current review stays visible");
   });
 });

@@ -62,4 +62,36 @@ describe("AnalyzeWorkspace", () => {
       expect(screen.getByRole("alert")).toHaveTextContent("We could not analyze your CV right now.");
     });
   });
+
+  it("keeps the current report visible while a replacement is running", async () => {
+    const user = userEvent.setup();
+    let finishSecondRequest: (() => void) | undefined;
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ analysis: sampleAnalysis }),
+      })
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) => {
+            finishSecondRequest = () => resolve({ ok: true, json: async () => ({ analysis: sampleAnalysis }) });
+          }),
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(<AnalyzeWorkspace />);
+    await user.upload(screen.getByLabelText("CV"), new File(["%PDF-1.4"], "cv.pdf", { type: "application/pdf" }));
+    await user.type(screen.getByLabelText("Job description"), "React engineer using TypeScript");
+    await user.click(screen.getByRole("button", { name: "Analyze my fit" }));
+
+    expect(await screen.findByText("79%")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Run a new review" }));
+
+    expect(await screen.findByRole("status")).toHaveTextContent("current review stays visible");
+    expect(screen.getByText("79%")).toBeInTheDocument();
+
+    finishSecondRequest?.();
+    await waitFor(() => expect(screen.queryByRole("status")).not.toBeInTheDocument());
+  });
 });

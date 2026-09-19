@@ -1,33 +1,20 @@
-const steps = ["Reading CV", "Extracting requirements", "Comparing skills", "Generating recommendations"] as const;
-
-export function AnalysisProgress({ activeStep = 2 }: { activeStep?: number }) {
+export function AnalysisProgress({ hasPreviousResult = false }: { hasPreviousResult?: boolean }) {
   return (
-    <div role="status" aria-live="polite" className="rounded-[16px] border border-[var(--line)] bg-[var(--surface)] p-6">
-      <p className="font-semibold">Analyzing your CV</p>
-      <p className="mt-1 text-sm text-[var(--text-muted)]">This usually takes a few seconds.</p>
-      <ol className="mt-5 grid gap-3">
-        {steps.map((step, index) => {
-          const state = index < activeStep ? "done" : index === activeStep ? "current" : "waiting";
-          return (
-            <li key={step} className="flex items-center gap-3 text-sm">
-              <span
-                aria-hidden
-                className={`flex size-6 items-center justify-center rounded-full border text-xs font-semibold ${
-                  state === "waiting"
-                    ? "border-[var(--line)] text-[var(--text-muted)]"
-                    : "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--accent)]"
-                }`}
-              >
-                {state === "done" ? "OK" : index + 1}
-              </span>
-              <span className={state === "current" ? "font-semibold" : "text-[var(--text-muted)]"}>
-                {step}
-                {state === "current" ? ", in progress" : state === "done" ? ", complete" : ""}
-              </span>
-            </li>
-          );
-        })}
-      </ol>
+    <div role="status" aria-live="polite" className="surface-panel overflow-hidden px-5 py-4 sm:px-6">
+      <div className="flex items-start justify-between gap-6">
+        <div>
+          <p className="font-semibold">Analyzing your CV</p>
+          <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">
+            {hasPreviousResult
+              ? "Your current review stays visible until the new one is ready."
+              : "We are reading both documents and building your evidence review."}
+          </p>
+        </div>
+        <span className="mt-1 size-2 shrink-0 animate-pulse rounded-full bg-[var(--accent)]" aria-hidden />
+      </div>
+      <div className="mt-4 h-1 overflow-hidden rounded-full bg-[var(--surface-muted)]" aria-hidden>
+        <div className="h-full w-2/3 animate-pulse rounded-full bg-[var(--accent)]" />
+      </div>
     </div>
   );
 }

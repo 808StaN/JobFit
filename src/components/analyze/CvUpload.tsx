@@ -24,15 +24,16 @@ export function CvUpload({ file, error, disabled, onFileChange }: CvUploadProps)
   }
 
   return (
-    <div className="grid gap-2">
-      <label htmlFor={inputId} className="font-semibold">
+    <div className="grid gap-3">
+      <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">01 / Source document</p>
+      <label htmlFor={inputId} className="text-lg font-semibold tracking-[-0.02em]">
         CV
       </label>
-      <p id={helpId} className="text-sm text-[var(--text-muted)]">
+      <p id={helpId} className="-mt-1 text-sm leading-6 text-[var(--text-muted)]">
         PDF only, maximum 5 MB. You can replace the file at any time.
       </p>
       <div
-        className="rounded-[16px] border border-dashed border-[var(--line)] bg-[var(--surface)] p-5"
+        className="mt-2 min-h-64 rounded-[var(--radius-control)] border border-dashed border-[var(--line-strong)] bg-[var(--background)] p-4 transition-colors hover:bg-[var(--surface-muted)]"
         onDragOver={(event) => {
           event.preventDefault();
         }}
@@ -62,15 +63,17 @@ export function CvUpload({ file, error, disabled, onFileChange }: CvUploadProps)
           }}
         />
         {file ? (
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="flex min-w-0 items-center gap-2 font-medium">
-              <IconFileTypePdf size={22} stroke={1.8} className="shrink-0 text-[var(--accent)]" aria-hidden />
-              <span className="truncate">{file.name}</span>
+          <div className="flex min-h-56 flex-col justify-between gap-6 p-2">
+            <p className="flex min-w-0 flex-col items-start gap-4 font-medium">
+              <span className="grid size-12 place-items-center rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">
+                <IconFileTypePdf size={24} stroke={1.8} aria-hidden />
+              </span>
+              <span className="max-w-full truncate">{file.name}</span>
             </p>
             <div className="flex gap-2">
               <button
                 type="button"
-                className="rounded-[12px] border border-[var(--line)] px-3 py-2 text-sm font-semibold transition hover:bg-[var(--surface-muted)] active:scale-[0.98]"
+                className="button-secondary min-h-10 flex-1 px-3 py-2 text-sm"
                 onClick={() => inputRef.current?.click()}
                 disabled={disabled}
               >
@@ -78,7 +81,7 @@ export function CvUpload({ file, error, disabled, onFileChange }: CvUploadProps)
               </button>
               <button
                 type="button"
-                className="inline-flex items-center gap-1 rounded-[12px] border border-[var(--line)] px-3 py-2 text-sm font-semibold text-[var(--danger)] transition hover:bg-[var(--surface-muted)] active:scale-[0.98]"
+                className="button-secondary min-h-10 flex-1 px-3 py-2 text-sm text-[var(--danger)]"
                 onClick={() => assignFile(null)}
                 disabled={disabled}
               >
@@ -90,12 +93,15 @@ export function CvUpload({ file, error, disabled, onFileChange }: CvUploadProps)
         ) : (
           <button
             type="button"
-            className="flex w-full flex-col items-center gap-2 rounded-[12px] py-6 text-center transition hover:bg-[var(--surface-muted)] active:scale-[0.99]"
+            className="flex min-h-56 w-full flex-col items-center justify-center gap-3 rounded-[var(--radius-control)] p-5 text-center transition hover:bg-[var(--surface)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
             onClick={() => inputRef.current?.click()}
             disabled={disabled}
           >
-            <IconUpload size={28} stroke={1.8} className="text-[var(--accent)]" aria-hidden />
-            <span className="font-semibold">Drop your PDF here, or choose a file</span>
+            <span className="grid size-12 place-items-center rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">
+              <IconUpload size={24} stroke={1.8} aria-hidden />
+            </span>
+            <span className="max-w-52 font-semibold leading-6">Drop your PDF here, or choose a file</span>
+            <span className="text-xs text-[var(--text-muted)]">Text-based PDF works best</span>
           </button>
         )}
       </div>

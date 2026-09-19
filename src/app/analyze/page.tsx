@@ -8,14 +8,19 @@ export const metadata: Metadata = {
 
 export default function AnalyzePage() {
   return (
-    <main id="main" className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-8">
-      <div className="max-w-3xl">
-        <h1 className="text-4xl font-semibold tracking-tight">Analyze your CV</h1>
-        <p className="mt-3 max-w-[65ch] leading-7 text-[var(--text-muted)]">
-          Add a PDF and the job description. The result is an evidence-based review, not a hiring prediction.
+    <main id="main" className="page-shell pb-24 pt-12 sm:pb-32 sm:pt-16">
+      <div className="grid gap-8 border-b border-[var(--line)] pb-10 lg:grid-cols-12 lg:items-end">
+        <div className="lg:col-span-8">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Analysis workspace</p>
+          <h1 className="mt-5 max-w-[12ch] text-balance text-5xl font-semibold leading-[0.96] tracking-[-0.065em] sm:text-6xl">
+            Review one application.
+          </h1>
+        </div>
+        <p className="max-w-[36rem] text-pretty leading-7 text-[var(--text-muted)] lg:col-span-4">
+          Add a PDF and the full job description. You will get an evidence-led report with clear priorities, not a hiring prediction.
         </p>
       </div>
-      <div className="mt-10">
+      <div className="mt-10 sm:mt-12">
         <AnalyzeWorkspace />
       </div>
     </main>

@@ -74,14 +74,19 @@ export function ImproveBullet({ jobDescription }: ImproveBulletProps) {
   }
 
   return (
-    <section className="rounded-[16px] border border-[var(--line)] bg-[var(--surface)] p-6" aria-labelledby="improve-heading">
-      <h2 id="improve-heading" className="text-2xl font-semibold tracking-tight">
-        Improve a CV bullet
-      </h2>
-      <p className="mt-2 max-w-[65ch] text-[var(--text-muted)]">
-        Paste one existing bullet. JobFit can rewrite it for this role, but it will not invent new experience.
-      </p>
-      <form className="mt-5 grid gap-4" onSubmit={onSubmit}>
+    <section className="surface-panel overflow-hidden" aria-labelledby="improve-heading">
+      <div className="grid gap-4 border-b border-[var(--line)] px-5 py-6 sm:px-7 lg:grid-cols-12 lg:items-end">
+        <div className="lg:col-span-7">
+          <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Follow-up tool</p>
+          <h2 id="improve-heading" className="mt-2 text-3xl font-semibold tracking-[-0.04em]">
+            Improve a CV bullet
+          </h2>
+        </div>
+        <p className="max-w-[38rem] text-sm leading-6 text-[var(--text-muted)] lg:col-span-5">
+          Rewrite one existing bullet for this role without inventing experience.
+        </p>
+      </div>
+      <form className="grid gap-5 px-5 py-6 sm:px-7" onSubmit={onSubmit}>
         <div className="grid gap-2">
           <label htmlFor={inputId} className="font-semibold">
             Existing bullet
@@ -96,7 +101,7 @@ export function ImproveBullet({ jobDescription }: ImproveBulletProps) {
             rows={4}
             aria-invalid={Boolean(fieldError)}
             aria-describedby={fieldError ? `${helpId} ${errorId}` : helpId}
-            className="w-full rounded-[12px] border border-[var(--line)] bg-[var(--background)] px-4 py-3 leading-7"
+            className="w-full rounded-[var(--radius-control)] border border-[var(--line-strong)] bg-[var(--background)] px-4 py-3 leading-7 disabled:cursor-not-allowed disabled:opacity-60"
             onChange={(event) => {
               setBullet(event.target.value);
               setCopied(false);
@@ -111,24 +116,24 @@ export function ImproveBullet({ jobDescription }: ImproveBulletProps) {
         <button
           type="submit"
           disabled={pending}
-          className="w-fit rounded-[12px] bg-[var(--accent-button)] px-4 py-2.5 font-semibold text-[var(--accent-button-text)] transition hover:bg-[var(--accent-hover)] active:scale-[0.98] disabled:opacity-60"
+          className="button-primary w-fit"
         >
           {pending ? "Improving bullet" : "Improve"}
         </button>
       </form>
       {requestError ? (
-        <div className="mt-4">
+          <div className="px-5 pb-6 sm:px-7">
           <ErrorMessage>{requestError}</ErrorMessage>
         </div>
       ) : null}
       {result ? (
-        <div className="mt-5 rounded-[12px] bg-[var(--surface-muted)] p-4">
-          <p className="font-semibold">Suggested rewrite</p>
-          <p className="mt-2 leading-7">{result.improvedBullet}</p>
-          <p className="mt-3 text-sm text-[var(--text-muted)]">{result.rationale}</p>
+        <div className="border-t border-[var(--line)] bg-[var(--accent-soft)] px-5 py-6 sm:px-7">
+          <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Suggested rewrite</p>
+          <p className="mt-3 max-w-[58rem] text-lg font-semibold leading-8">{result.improvedBullet}</p>
+          <p className="mt-3 max-w-[58rem] text-sm leading-6 text-[var(--text-muted)]">{result.rationale}</p>
           <button
             type="button"
-            className="mt-4 rounded-[12px] border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-sm font-semibold transition hover:bg-[var(--background)] active:scale-[0.98]"
+            className="button-secondary mt-5 min-h-10 px-4 py-2 text-sm"
             onClick={copyResult}
           >
             {copied ? "Copied" : "Copy"}
