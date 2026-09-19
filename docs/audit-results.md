@@ -31,10 +31,10 @@ npm run start
 
 Then run Chrome Lighthouse against `http://localhost:3000` and `http://localhost:3000/analyze` in mobile mode.
 
-Expected strengths: no client-side LLM SDK, local hero images with `next/image` and `priority`, CSS variables instead of large animation libraries.
+Expected strengths: no client-side LLM SDK, a client-only WebGPU hero with a CSS fallback, and CSS variables controlling the visual system.
 
 Attach screenshots from the live Vercel URL here after the first production audit.
 
 ## One concrete improvement from the audit
 
-The first contrast pass showed that a lighter dark-mode accent would make white button labels fail WCAG AA. The fix was a dedicated button token that stays dark forest green in both themes, while body links can still use the lighter accent for text.
+The current palette uses one consistent light theme. Medium blue action and focus tokens retain sufficient contrast against white while the surrounding surfaces stay pale and low-noise.

@@ -12,8 +12,7 @@ export default function AnalyzePage() {
     <main id="main" className="page-shell pb-24 pt-12 sm:pb-32 sm:pt-16">
       <div className="grid gap-8 border-b border-[var(--line)] pb-10 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-8">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Analysis workspace</p>
-          <h1 className="mt-5 max-w-[12ch] text-balance text-5xl font-semibold leading-[0.96] tracking-[-0.065em] sm:text-6xl">
+          <h1 className="max-w-[12ch] text-balance text-5xl font-semibold leading-[0.96] tracking-[-0.065em] sm:text-6xl">
             Review one application.
           </h1>
         </div>

@@ -1,46 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #edf1ec;
-  --surface: #f8faf7;
-  --surface-muted: #e0e7e1;
-  --surface-strong: #d2ddd5;
-  --text: #13211b;
-  --text-muted: #526159;
-  --line: #a9b8ae;
-  --line-strong: #718279;
-  --accent: #0d7659;
-  --accent-hover: #095d47;
-  --accent-soft: #cce6da;
-  --accent-button: #0a614a;
-  --accent-button-text: #f5fbf7;
-  --danger: #963932;
-  --shadow: rgba(35, 60, 49, 0.14);
+  --background: #f3f7fc;
+  --surface: #ffffff;
+  --surface-muted: #e8f1f9;
+  --surface-strong: #d5e4f1;
+  --text: #172635;
+  --text-muted: #5a6c7d;
+  --line: #c4d4e2;
+  --line-strong: #819db5;
+  --accent: #2f76b5;
+  --accent-hover: #24669f;
+  --accent-soft: #d9ecfa;
+  --accent-button: #2f76b5;
+  --accent-button-text: #ffffff;
+  --danger: #a44655;
+  --shadow: rgba(43, 91, 132, 0.16);
   --radius-control: 10px;
   --radius-panel: 20px;
   --radius-display: 28px;
   --z-skip: 40;
   --z-header: 20;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0d1511;
-    --surface: #131f19;
-    --surface-muted: #1d2c24;
-    --surface-strong: #273b31;
-    --text: #eef5f1;
-    --text-muted: #adbbb3;
-    --line: #5e7167;
-    --line-strong: #87978e;
-    --accent: #73cba5;
-    --accent-hover: #90dbbb;
-    --accent-soft: #1c4a38;
-    --accent-button: #b9e8d3;
-    --accent-button-text: #10251c;
-    --danger: #f08b84;
-    --shadow: rgba(1, 10, 6, 0.32);
-  }
 }
 
 * {
@@ -60,6 +40,34 @@ body {
   color: var(--text);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   text-rendering: optimizeLegibility;
+}
+
+* {
+  scrollbar-color: var(--accent-button) var(--surface-muted);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--surface-muted);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 3px solid var(--surface-muted);
+  border-radius: 999px;
+  background: var(--accent-button);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--surface-muted);
 }
 
 ::selection {

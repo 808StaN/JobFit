@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { IconArrowRight, IconCheck, IconFileText, IconLock } from "@tabler/icons-react";
 import { HeroShader } from "@/components/visual/HeroShader";
@@ -34,10 +33,6 @@ export default function Home() {
         <HeroShader />
         <div className="page-shell relative grid min-h-[42rem] items-center gap-12 py-14 sm:py-20 lg:grid-cols-12 lg:gap-8 lg:py-24">
           <div className="lg:col-span-7 lg:pr-10">
-            <p className="mb-7 flex items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
-              <span className="h-px w-8 bg-[var(--line-strong)]" aria-hidden />
-              CV evidence review
-            </p>
             <h1 className="max-w-[12ch] text-balance text-[clamp(3.15rem,7vw,6.8rem)] font-semibold leading-[0.91] tracking-[-0.072em] text-[var(--text)]">
               Know what your CV can prove.
             </h1>
@@ -129,18 +124,70 @@ export default function Home() {
       <section aria-labelledby="process-heading" className="border-y border-[var(--line)] bg-[var(--surface-muted)]">
         <div className="page-shell grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
           <div className="relative lg:col-span-7">
-            <div className="overflow-hidden rounded-[var(--radius-display)]">
-              <Image
-                src="/images/hero-desk.jpg"
-                alt="A candidate reviewing a printed CV beside a laptop open to a job posting."
-                width={1600}
-                height={900}
-                className="aspect-[4/3] w-full object-cover sm:aspect-[16/10]"
-              />
-            </div>
-            <div className="absolute -bottom-5 right-4 max-w-56 rounded-[var(--radius-control)] border border-[var(--line)] bg-[var(--surface)] px-4 py-3 shadow-[0_1rem_3rem_-1.5rem_var(--shadow)] sm:right-8">
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-[var(--text-muted)]">Typical input</p>
-              <p className="mt-1 text-sm font-semibold">1 PDF + 1 job description</p>
+            <div className="relative overflow-hidden rounded-[var(--radius-display)] border border-[var(--line)] bg-[var(--surface)] p-5 shadow-[0_2rem_5rem_-3rem_var(--shadow)] sm:p-8">
+              <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(var(--line)_1px,transparent_1px),linear-gradient(90deg,var(--line)_1px,transparent_1px)] [background-size:3rem_3rem] [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden />
+              <div className="relative flex items-center justify-between gap-4 border-b border-[var(--line)] pb-4">
+                <div>
+                  <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">Evidence pipeline</p>
+                  <p className="mt-1 text-sm font-semibold">One focused comparison</p>
+                </div>
+                <span className="flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-[var(--text-muted)]">
+                  <span className="size-2 animate-pulse rounded-full bg-[var(--accent)]" aria-hidden />
+                  Ready
+                </span>
+              </div>
+
+              <div className="relative mt-6 grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">
+                <div className="rounded-[var(--radius-control)] border border-[var(--line)] bg-[var(--background)] p-4">
+                  <div className="flex items-center gap-3 border-b border-[var(--line)] pb-3">
+                    <span className="grid size-9 place-items-center rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">
+                      <IconFileText size={18} stroke={1.8} aria-hidden />
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold">CV.pdf</p>
+                      <p className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-[var(--text-muted)]">Source evidence</p>
+                    </div>
+                  </div>
+                  <div className="mt-4 grid gap-3" aria-hidden>
+                    <span className="h-2 w-11/12 rounded-full bg-[var(--surface-strong)]" />
+                    <span className="h-2 w-4/5 rounded-full bg-[var(--surface-strong)]" />
+                    <span className="h-2 w-full rounded-full bg-[var(--accent-soft)]" />
+                    <span className="h-2 w-2/3 rounded-full bg-[var(--surface-strong)]" />
+                  </div>
+                  <p className="mt-5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">14 evidence points</p>
+                </div>
+
+                <span className="mx-auto grid size-10 rotate-90 place-items-center rounded-full border border-[var(--line-strong)] bg-[var(--surface)] text-[var(--accent)] sm:rotate-0" aria-hidden>
+                  <IconArrowRight size={19} stroke={1.8} />
+                </span>
+
+                <div className="rounded-[var(--radius-control)] border border-[var(--line)] bg-[var(--background)] p-4">
+                  <p className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">Role requirements</p>
+                  <ul className="mt-3 grid gap-2.5 text-sm">
+                    <li className="flex items-center justify-between gap-3 border-b border-[var(--line)] pb-2.5">
+                      Product strategy
+                      <IconCheck size={16} stroke={2} className="text-[var(--accent)]" aria-label="Found" />
+                    </li>
+                    <li className="flex items-center justify-between gap-3 border-b border-[var(--line)] pb-2.5">
+                      User research
+                      <IconCheck size={16} stroke={2} className="text-[var(--accent)]" aria-label="Found" />
+                    </li>
+                    <li className="flex items-center justify-between gap-3">
+                      Experimentation
+                      <span className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.1em] text-[var(--danger)]">Gap</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="relative mt-5 grid gap-4 rounded-[var(--radius-control)] bg-[var(--accent-soft)] p-4 sm:grid-cols-[auto_1fr_auto] sm:items-center">
+                <p className="data-number text-5xl font-semibold leading-none text-[var(--accent)]">68</p>
+                <div>
+                  <p className="font-semibold">Evidence report ready</p>
+                  <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">7 matches · 2 priority gaps · 3 next steps</p>
+                </div>
+                <span className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">Fit / 100</span>
+              </div>
             </div>
           </div>
 

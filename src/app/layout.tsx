@@ -27,20 +27,11 @@ export const metadata: Metadata = {
     siteName: "JobFit",
     title: "JobFit | See what your CV proves",
     description: "Compare one CV with one role and turn the overlap into an evidence-led revision plan.",
-    images: [
-      {
-        url: "/images/hero-desk.jpg",
-        width: 1280,
-        height: 720,
-        alt: "A candidate reviewing a CV beside a laptop displaying a job posting.",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "JobFit | See what your CV proves",
     description: "Compare one CV with one role and turn the overlap into an evidence-led revision plan.",
-    images: ["/images/hero-desk.jpg"],
   },
   robots: {
     index: true,
