@@ -11,6 +11,10 @@ function asArray(value: unknown) {
   return Array.isArray(value) ? value : null;
 }
 
+function limitedArray(value: unknown, max: number) {
+  return asArray(value)?.slice(0, max);
+}
+
 function clip(value: unknown, max: number) {
   return String(value ?? "")
     .replace(/\s+/g, " ")
@@ -84,6 +88,19 @@ function toBoolean(value: unknown) {
   return value;
 }
 
+function calculateSkillsScore(jobRequirements: Array<{ type: "required" | "preferred"; found: boolean }>) {
+  const required = jobRequirements.filter((requirement) => requirement.type === "required");
+  const preferred = jobRequirements.filter((requirement) => requirement.type === "preferred");
+  const requiredScore = required.length === 0 ? null : (required.filter((requirement) => requirement.found).length / required.length) * 100;
+  const preferredScore = preferred.length === 0 ? null : (preferred.filter((requirement) => requirement.found).length / preferred.length) * 100;
+
+  if (requiredScore !== null && preferredScore !== null) {
+    return Math.round(requiredScore * 0.7 + preferredScore * 0.3);
+  }
+
+  return Math.round(requiredScore ?? preferredScore ?? 0);
+}
+
 export function normalizeAnalysis(raw: unknown) {
   const root = asRecord(raw);
   if (!root) {
@@ -92,7 +109,7 @@ export function normalizeAnalysis(raw: unknown) {
 
   const wrapped = asRecord(root.analysis);
   const input = wrapped && Object.keys(root).length === 1 ? wrapped : root;
-  const matchedSkills = asArray(input.matchedSkills)?.map((item) => {
+  const matchedSkills = limitedArray(input.matchedSkills, 10)?.map((item) => {
     const record = asRecord(item);
     if (!record) {
       return item;
@@ -104,7 +121,7 @@ export function normalizeAnalysis(raw: unknown) {
     };
   });
 
-  const gaps = asArray(input.gaps ?? input.missingSkills)?.map((item) => {
+  const gaps = limitedArray(input.gaps ?? input.missingSkills, 10)?.map((item) => {
     const record = asRecord(item);
     if (!record) {
       return item;
@@ -117,11 +134,11 @@ export function normalizeAnalysis(raw: unknown) {
     };
   });
 
-  const strengths = asArray(input.strengths)?.map((item) =>
+  const strengths = limitedArray(input.strengths, 5)?.map((item) =>
     typeof item === "string" ? clip(item, 260) : item,
   );
 
-  const suggestions = asArray(input.suggestions)?.map((item) => {
+  const suggestions = limitedArray(input.suggestions, 6)?.map((item) => {
     const record = asRecord(item);
     if (!record) {
       return item;
@@ -134,7 +151,7 @@ export function normalizeAnalysis(raw: unknown) {
     };
   });
 
-  const jobRequirements = asArray(input.jobRequirements)?.map((item) => {
+  const jobRequirements = limitedArray(input.jobRequirements, 12)?.map((item) => {
     const record = asRecord(item);
     if (!record) {
       return item;
@@ -147,7 +164,7 @@ export function normalizeAnalysis(raw: unknown) {
     };
   });
 
-  const experienceRelevance = asArray(input.experienceRelevance)?.map((item) => {
+  const experienceRelevance = limitedArray(input.experienceRelevance, 5)?.map((item) => {
     const record = asRecord(item);
     if (!record) {
       return item;
@@ -160,7 +177,7 @@ export function normalizeAnalysis(raw: unknown) {
     };
   });
 
-  const actionPlan = asArray(input.actionPlan)?.map((item) =>
+  const actionPlan = limitedArray(input.actionPlan, 5)?.map((item) =>
     typeof item === "string" ? clip(item, 240) : item,
   );
 
@@ -182,12 +199,15 @@ export function parseAnalysis(raw: unknown) {
     return result;
   }
 
-  const { skills, experience, education, keywords } = result.data.scoreBreakdown;
-  const overallScore = Math.round(skills * 0.4 + experience * 0.3 + education * 0.1 + keywords * 0.2);
+  const scoreBreakdown = {
+    ...result.data.scoreBreakdown,
+    skills: calculateSkillsScore(result.data.jobRequirements),
+  };
+  const overallScore = scoreBreakdown.skills;
 
   return {
     success: true as const,
-    data: { ...result.data, overallScore },
+    data: { ...result.data, overallScore, scoreBreakdown },
   };
 }
 

@@ -27,6 +27,16 @@ describe("prompts", () => {
     expect(prompt).toContain("Tworzę aplikacje w React i Next.js.");
   });
 
+  it("sets maximum list sizes and requirement priority", () => {
+    const prompt = createAnalysisPrompt("Built React apps.", "Hiring a React engineer.");
+
+    expect(prompt).toContain("at most 12");
+    expect(prompt).toContain("List required requirements before preferred ones.");
+    expect(prompt).toContain("actionPlan: non-empty array of at most 5 strings");
+    expect(prompt).toContain("found required requirements account for 70%");
+    expect(prompt).toContain("prioritize accurate jobRequirements and found values");
+  });
+
   it("clips oversized CV text before sending it to the model", () => {
     const prompt = createAnalysisPrompt("C".repeat(MAX_MODEL_CV_CHARS + 500), "Hiring a React engineer.");
     expect(prompt).not.toContain("C".repeat(MAX_MODEL_CV_CHARS + 1));

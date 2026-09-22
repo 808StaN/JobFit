@@ -17,7 +17,7 @@ const scoreSchema = z.preprocess((value) => {
 
 export const analysisSchema = z
   .object({
-    overallScore: scoreSchema.describe("Orientation score for CV-to-role evidence, not a hiring prediction."),
+    overallScore: scoreSchema.describe("Requirement coverage score, not a hiring prediction."),
     scoreBreakdown: z.object({
       skills: scoreSchema,
       experience: scoreSchema,

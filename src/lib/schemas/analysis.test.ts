@@ -20,7 +20,7 @@ describe("analysisSchema", () => {
 });
 
 describe("parseAnalysis", () => {
-  it("coerces breakdown scores and computes the weighted overall score", () => {
+  it("uses requirement coverage instead of model-generated score estimates", () => {
     const result = parseAnalysis({
       ...sampleAnalysis,
       overallScore: "84.4",
@@ -34,8 +34,8 @@ describe("parseAnalysis", () => {
 
     expect(result.success).toBe(true);
     if (result.success) {
-      expect(result.data.overallScore).toBe(83);
-      expect(result.data.scoreBreakdown.skills).toBe(89);
+      expect(result.data.overallScore).toBe(70);
+      expect(result.data.scoreBreakdown.skills).toBe(70);
     }
   });
 
@@ -55,6 +55,25 @@ describe("parseAnalysis", () => {
     if (result.success) {
       expect(result.data.gaps[0]?.status).toBe("weak_evidence");
       expect(result.data.gaps[0]?.explanation.length).toBe(240);
+    }
+  });
+
+  it("keeps the highest-priority entries when model arrays exceed schema limits", () => {
+    const result = parseAnalysis({
+      ...sampleAnalysis,
+      jobRequirements: Array.from({ length: 14 }, (_, index) => ({
+        name: `Requirement ${index + 1}`,
+        type: "required",
+        found: false,
+      })),
+      actionPlan: Array.from({ length: 7 }, (_, index) => `Action ${index + 1}`),
+    });
+
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.jobRequirements).toHaveLength(12);
+      expect(result.data.jobRequirements[0]?.name).toBe("Requirement 1");
+      expect(result.data.actionPlan).toEqual(["Action 1", "Action 2", "Action 3", "Action 4", "Action 5"]);
     }
   });
 

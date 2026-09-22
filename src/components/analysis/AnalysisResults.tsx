@@ -13,7 +13,25 @@ const priorityLabel = {
   low: "Lower priority",
 } as const;
 
+function requirementCoverage(analysis: Analysis, type: "required" | "preferred") {
+  const requirements = analysis.jobRequirements.filter((requirement) => requirement.type === type);
+  const found = requirements.filter((requirement) => requirement.found).length;
+
+  return {
+    found,
+    total: requirements.length,
+    score: requirements.length === 0 ? 0 : Math.round((found / requirements.length) * 100),
+  };
+}
+
 export function AnalysisResults({ analysis }: { analysis: Analysis }) {
+  const requiredCoverage = requirementCoverage(analysis, "required");
+  const preferredCoverage = requirementCoverage(analysis, "preferred");
+  const coverageGroups = [
+    { label: "Required requirements", ...requiredCoverage },
+    { label: "Preferred requirements", ...preferredCoverage },
+  ];
+
   return (
     <section aria-labelledby="results-heading" className="grid gap-16">
       <div className="surface-panel overflow-hidden">
@@ -29,24 +47,31 @@ export function AnalysisResults({ analysis }: { analysis: Analysis }) {
               {analysis.overallScore}%
             </span>
             <div className="mt-7">
-              <p className="text-lg font-semibold">Overall match</p>
+              <p className="text-lg font-semibold">Requirement coverage</p>
               <p className="mt-2 max-w-xs text-sm leading-6 text-[var(--text-muted)]">
-                An orientation score based on evidence found in this CV, not a hiring prediction.
+                Confirmed CV evidence for the role&apos;s requirements. This is not a hiring prediction.
               </p>
             </div>
           </div>
 
-          <dl className="grid content-center px-6 py-4 sm:px-8 sm:py-6">
-            {Object.entries(analysis.scoreBreakdown).map(([name, score]) => (
-              <div key={name} className="grid grid-cols-[7rem_1fr_auto] items-center gap-4 border-b border-[var(--line)] py-4 last:border-b-0">
-                <dt className="text-sm capitalize text-[var(--text-muted)]">{name}</dt>
-                <dd className="h-1.5 overflow-hidden rounded-full bg-[var(--surface-muted)]">
-                  <span className="block h-full rounded-full bg-[var(--accent)]" style={{ width: `${score}%` }} />
-                </dd>
-                <dd className="data-number w-10 text-right text-sm font-semibold">{score}%</dd>
-              </div>
-            ))}
-          </dl>
+          <div className="grid content-center px-6 py-4 sm:px-8 sm:py-6">
+            <dl>
+              {coverageGroups.map(({ label, found, total, score }) => (
+                <div key={label} className="grid grid-cols-[7rem_1fr_auto] items-center gap-4 border-b border-[var(--line)] py-4 last:border-b-0">
+                  <dt className="text-sm text-[var(--text-muted)]">{label}</dt>
+                  <dd className="h-1.5 overflow-hidden rounded-full bg-[var(--surface-muted)]">
+                    <span className="block h-full rounded-full bg-[var(--accent)]" style={{ width: `${score}%` }} />
+                  </dd>
+                  <dd className="data-number w-12 text-right text-sm font-semibold">
+                    {total === 0 ? "N/A" : `${found}/${total}`}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="pt-4 text-xs leading-5 text-[var(--text-muted)]">
+              Required requirements account for 70% of the score and preferred requirements for 30% when both are listed.
+            </p>
+          </div>
         </div>
       </div>
 
