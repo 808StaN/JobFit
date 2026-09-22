@@ -1,5 +1,6 @@
 import { IconArrowRight, IconCheck, IconFileText, IconLock } from "@tabler/icons-react";
 import { GravityLink } from "@/components/ui/GravityLink";
+import { AmbientSectionShader } from "@/components/visual/AmbientSectionShader";
 import { HeroShader } from "@/components/visual/HeroShader";
 
 const reviewRows = [
@@ -138,10 +139,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-labelledby="process-heading" className="border-t border-[var(--line)] bg-[var(--surface-muted)]">
-        <div className="page-shell grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
-          <div className="relative lg:col-span-7">
-            <div className="glass-visual-panel relative overflow-hidden rounded-[var(--radius-display)] border border-[var(--line)] p-5 shadow-[0_2rem_5rem_-3rem_var(--shadow)] sm:p-8">
+      <div className="relative isolate overflow-hidden">
+        <AmbientSectionShader />
+        <section aria-labelledby="process-heading" className="relative z-10">
+          <div className="page-shell grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
+            <div className="relative lg:col-span-7">
+              <div className="glass-visual-panel relative overflow-hidden rounded-[var(--radius-display)] border border-[var(--line)] p-5 shadow-[0_2rem_5rem_-3rem_var(--shadow)] sm:p-8">
               <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(var(--line)_1px,transparent_1px),linear-gradient(90deg,var(--line)_1px,transparent_1px)] [background-size:3rem_3rem] [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden />
               <div className="relative flex items-center justify-between gap-4 border-b border-[var(--line)] pb-4">
                 <div>
@@ -202,41 +205,42 @@ export default function Home() {
                 </div>
                 <span className="text-xs font-semibold text-[var(--accent)]">Fit / 100</span>
               </div>
+              </div>
+            </div>
+
+            <div className="pt-5 lg:col-span-4 lg:col-start-9 lg:pt-0">
+              <h2 id="process-heading" className="text-balance text-4xl font-semibold leading-[1.03] tracking-[-0.055em] sm:text-5xl">
+                From PDF to an edit plan.
+              </h2>
+              <ol className="mt-9 grid gap-6">
+                <li className="grid grid-cols-[2rem_1fr] gap-4">
+                  <span className="font-mono text-sm text-[var(--accent)]">01</span>
+                  <div>
+                    <h3 className="font-semibold">Add your CV</h3>
+                    <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Upload one PDF, up to 5 MB.</p>
+                  </div>
+                </li>
+                <li className="grid grid-cols-[2rem_1fr] gap-4">
+                  <span className="font-mono text-sm text-[var(--accent)]">02</span>
+                  <div>
+                    <h3 className="font-semibold">Paste the complete role</h3>
+                    <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Paste the role requirements.</p>
+                  </div>
+                </li>
+                <li className="grid grid-cols-[2rem_1fr] gap-4">
+                  <span className="font-mono text-sm text-[var(--accent)]">03</span>
+                  <div>
+                    <h3 className="font-semibold">Revise what matters</h3>
+                    <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Turn gaps into focused CV edits.</p>
+                  </div>
+                </li>
+              </ol>
             </div>
           </div>
+        </section>
+      </div>
 
-          <div className="pt-5 lg:col-span-4 lg:col-start-9 lg:pt-0">
-            <h2 id="process-heading" className="text-balance text-4xl font-semibold leading-[1.03] tracking-[-0.055em] sm:text-5xl">
-              From PDF to an edit plan.
-            </h2>
-            <ol className="mt-9 grid gap-6">
-              <li className="grid grid-cols-[2rem_1fr] gap-4">
-                <span className="font-mono text-sm text-[var(--accent)]">01</span>
-                <div>
-                  <h3 className="font-semibold">Add your CV</h3>
-                  <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Upload one PDF, up to 5 MB.</p>
-                </div>
-              </li>
-              <li className="grid grid-cols-[2rem_1fr] gap-4">
-                <span className="font-mono text-sm text-[var(--accent)]">02</span>
-                <div>
-                  <h3 className="font-semibold">Paste the complete role</h3>
-                  <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Paste the role requirements.</p>
-                </div>
-              </li>
-              <li className="grid grid-cols-[2rem_1fr] gap-4">
-                <span className="font-mono text-sm text-[var(--accent)]">03</span>
-                <div>
-                  <h3 className="font-semibold">Revise what matters</h3>
-                  <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Turn gaps into focused CV edits.</p>
-                </div>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-[var(--line)] bg-[var(--accent-soft)]">
+      <section className="final-cta">
         <div className="page-shell grid gap-8 py-16 sm:py-20 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <h2 className="max-w-[17ch] text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.055em] sm:text-5xl">

@@ -178,6 +178,41 @@ a {
   backdrop-filter: blur(1.25rem) saturate(125%);
 }
 
+.final-cta {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.final-cta::before {
+  position: absolute;
+  top: 50%;
+  left: max(1rem, calc((100% - 80rem) / 2 - 2rem));
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 999px;
+  background: var(--accent);
+  opacity: 0.28;
+  content: "";
+}
+
+.final-cta::after {
+  position: absolute;
+  top: -16rem;
+  right: -12rem;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent-soft) 70%, transparent), transparent 68%);
+  content: "";
+}
+
+.final-cta > * {
+  position: relative;
+  z-index: 1;
+}
+
 .floating-nav {
   border: 1px solid color-mix(in srgb, white 24%, transparent);
   border-radius: 14px;
