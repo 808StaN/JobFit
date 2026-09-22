@@ -3,7 +3,7 @@
 Project: JobFit  
 Environment: production (Vercel)  
 Owner: repository maintainer  
-Status: ready to deploy after secrets are set
+Status: pending first production deployment and production verification
 
 ## Before deploy
 
@@ -17,6 +17,7 @@ Status: ready to deploy after secrets are set
 - [x] Invalid model JSON is rejected by Zod before it reaches the UI
 - [x] `/` is the landing page and `/analyze` is the working product
 - [x] Rollback path is documented: redeploy previous Vercel deployment or previous `main` commit
+- [x] GitHub Actions verifies lint, coverage thresholds, and production build on `main` and pull requests
 
 ## Vercel setup
 
@@ -38,7 +39,10 @@ Status: ready to deploy after secrets are set
 - [ ] Submit a real PDF plus a job description and confirm a structured result
 - [ ] Trigger Improve on one existing bullet
 - [ ] Confirm a missing-key or provider error renders the fallback message instead of a blank page
+- [ ] Confirm route-level error recovery renders a retry action instead of a blank page
 - [ ] Paste the live URL into README.md
+- [ ] Paste the GitHub repository URL into the portfolio entry
+- [ ] Run Lighthouse and axe/WAVE against the production URL, then record the results in `docs/audit-results.md`
 
 ## Monitoring
 

@@ -7,7 +7,7 @@ This is a small production frontend for the Frontend AI Engineering capstone. It
 ## Live app
 
 - Local: `http://localhost:3000`
-- Production URL: add your Vercel URL here after the first deploy
+- Production URL: pending first Vercel deployment
 - Analysis workspace: `/analyze`
 
 ## Who it is for
@@ -21,6 +21,8 @@ npm install
 cp .env.example .env.local
 npm run dev
 ```
+
+Use Node.js 22 or newer. Add at least one provider API key to `.env.local` before submitting an analysis.
 
 Open `http://localhost:3000`, then go to **Analyze my fit**.
 
@@ -116,13 +118,15 @@ npm test
 npm run test:coverage
 ```
 
-Coverage includes form validation, PDF rejection, schema fallback, the analysis workspace, results rendering, and the bullet rewrite flow. Target: at least 50% of UI components.
+Coverage includes form validation, PDF rejection, schema fallback, API routes, the analysis workspace, results rendering, and the bullet rewrite flow. CI enforces a 50% minimum for statements, branches, functions, and lines.
+
+Latest local verification on 2026-09-22: 82 passing tests; 74.11% statements, 69.98% branches, 76.22% functions, and 74.57% lines.
 
 ## Accessibility and performance
 
 - Semantic headings, labels above inputs, visible focus, skip link
 - `aria-live` progress and `role="alert"` errors
-- Color tokens keep the same forest-green accent in light and dark system themes
+- Blue action and focus tokens are designed to retain contrast against white surfaces
 - Lighthouse and axe notes live in `docs/audit-results.md`
 
 ## Deployment
@@ -131,7 +135,7 @@ See `docs/deployment-checklist.md`. The intended host is Vercel.
 
 1. Push this repository to GitHub.
 2. Import the project in Vercel.
-3. Set `OPENROUTER_API_KEY`, `OPENROUTER_MODELS`, and `APP_URL`.
+3. Set `GROQ_API_KEY`, `GROQ_MODEL`, `OPENROUTER_API_KEY`, `OPENROUTER_MODELS`, and `APP_URL`.
 4. Deploy the production branch.
 5. Confirm `/` and `/analyze` load, then run one real analysis.
 
@@ -141,7 +145,7 @@ Rollback: redeploy the previous production deployment from Vercel, or promote th
 
 - PDF-only. Scanned image PDFs may have no extractable text.
 - No account, history, or job-URL import.
-- Match scores are model estimates, not hiring probabilities.
+- Requirement coverage is calculated from the extracted role requirements and evidence found in the CV. It is not a hiring prediction, and the AI classification of a requirement can still need human review.
 - Free OpenRouter models can be rate-limited or slower than paid ones.
 - The app is English-language in the UI and in the model prompt.
 

@@ -56,8 +56,8 @@ export default function Home() {
                 }}
               />
               <GravityLink
-                href="#sample-review"
-                text="See the output"
+                href="#process"
+                text="How it works"
                 variant="secondary"
                 icon="arrow-down"
                 sizing={{ paddingX: 22, paddingY: 14, borderRadius: 14, fontSize: 14 }}
@@ -141,19 +141,13 @@ export default function Home() {
 
       <div className="relative isolate overflow-hidden">
         <AmbientSectionShader />
-        <section aria-labelledby="process-heading" className="relative z-10">
+        <section id="process" aria-labelledby="process-heading" className="relative z-10 scroll-mt-24">
           <div className="page-shell grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
             <div className="relative lg:col-span-7">
               <div className="glass-visual-panel relative overflow-hidden rounded-[var(--radius-display)] border border-[var(--line)] p-5 shadow-[0_2rem_5rem_-3rem_var(--shadow)] sm:p-8">
               <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(var(--line)_1px,transparent_1px),linear-gradient(90deg,var(--line)_1px,transparent_1px)] [background-size:3rem_3rem] [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden />
-              <div className="relative flex items-center justify-between gap-4 border-b border-[var(--line)] pb-4">
-                <div>
-                  <p className="text-sm font-semibold">One focused comparison</p>
-                </div>
-                <span className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
-                  <span className="size-2 animate-pulse rounded-full bg-[var(--accent)]" aria-hidden />
-                  Ready
-                </span>
+              <div className="relative border-b border-[var(--line)] pb-4">
+                <p className="text-sm font-semibold">One focused comparison</p>
               </div>
 
               <div className="relative mt-6 grid items-center gap-4 sm:grid-cols-[1fr_auto_1fr]">

@@ -12,8 +12,14 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
-      include: ["src/components/**/*.{ts,tsx}", "src/lib/**/*.{ts,tsx}"],
+      include: ["src/app/api/**/*.ts", "src/components/**/*.{ts,tsx}", "src/lib/**/*.{ts,tsx}"],
       exclude: ["src/test/**"],
+      thresholds: {
+        statements: 50,
+        branches: 50,
+        functions: 50,
+        lines: 50,
+      },
     },
   },
   resolve: {
