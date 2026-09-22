@@ -12,17 +12,17 @@ const outcomes = [
   {
     number: "01",
     title: "Evidence already working",
-    description: "See which requirements your CV supports and the exact experience behind each match.",
+    description: "See the requirements your CV already supports.",
   },
   {
     number: "02",
     title: "Gaps worth your attention",
-    description: "Separate missing skills from experience that is present but too vague to carry weight.",
+    description: "Identify gaps and vague claims without inventing experience.",
   },
   {
     number: "03",
     title: "A focused revision plan",
-    description: "Leave with ordered next steps instead of a long list of generic CV advice.",
+    description: "Prioritize the edits that strengthen your CV.",
   },
 ];
 
@@ -121,7 +121,7 @@ export default function Home() {
               A review built for one decision.
             </h2>
             <p className="mt-6 max-w-[31rem] text-pretty leading-7 text-[var(--text-muted)]">
-              The score is an orientation signal for CV-to-role overlap, not a prediction of whether you will be hired.
+              The score shows CV-to-role overlap, not hiring odds.
             </p>
           </div>
           <ol className="lg:col-span-7 lg:col-start-7">
@@ -138,7 +138,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-labelledby="process-heading" className="border-y border-[var(--line)] bg-[var(--surface-muted)]">
+      <section aria-labelledby="process-heading" className="border-t border-[var(--line)] bg-[var(--surface-muted)]">
         <div className="page-shell grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
           <div className="relative lg:col-span-7">
             <div className="glass-visual-panel relative overflow-hidden rounded-[var(--radius-display)] border border-[var(--line)] p-5 shadow-[0_2rem_5rem_-3rem_var(--shadow)] sm:p-8">
@@ -214,49 +214,24 @@ export default function Home() {
                 <span className="font-mono text-sm text-[var(--accent)]">01</span>
                 <div>
                   <h3 className="font-semibold">Add your CV</h3>
-                  <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Upload one text-based PDF, up to 5 MB.</p>
+                  <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Upload one PDF, up to 5 MB.</p>
                 </div>
               </li>
               <li className="grid grid-cols-[2rem_1fr] gap-4">
                 <span className="font-mono text-sm text-[var(--accent)]">02</span>
                 <div>
                   <h3 className="font-semibold">Paste the complete role</h3>
-                  <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Keep required and preferred qualifications in context.</p>
+                  <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Paste the role requirements.</p>
                 </div>
               </li>
               <li className="grid grid-cols-[2rem_1fr] gap-4">
                 <span className="font-mono text-sm text-[var(--accent)]">03</span>
                 <div>
                   <h3 className="font-semibold">Revise what matters</h3>
-                  <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Work through prioritized gaps without rewriting your whole CV.</p>
+                  <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Turn gaps into focused CV edits.</p>
                 </div>
               </li>
             </ol>
-          </div>
-        </div>
-      </section>
-
-      <section aria-labelledby="guardrail-heading" className="page-shell py-24 sm:py-32">
-        <div className="grid gap-10 border-t border-[var(--line-strong)] pt-8 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <h2 id="guardrail-heading" className="max-w-[15ch] text-balance text-4xl font-semibold leading-[1.03] tracking-[-0.055em] sm:text-5xl">
-              Better evidence, never invented experience.
-            </h2>
-          </div>
-          <div className="lg:col-span-4 lg:col-start-9 lg:pt-10">
-            <p className="text-pretty leading-7 text-[var(--text-muted)]">
-              If testing, deployment, or accessibility work is absent from your CV, JobFit reports the gap. It will not write those claims for you.
-            </p>
-            <ul className="mt-6 grid gap-3 text-sm font-semibold">
-              <li className="flex items-center gap-3">
-                <IconCheck size={18} stroke={2} className="text-[var(--accent)]" aria-hidden />
-                Recommendations stay grounded in your PDF
-              </li>
-              <li className="flex items-center gap-3">
-                <IconCheck size={18} stroke={2} className="text-[var(--accent)]" aria-hidden />
-                Missing experience remains clearly labeled
-              </li>
-            </ul>
           </div>
         </div>
       </section>
