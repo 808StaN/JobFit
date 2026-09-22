@@ -32,7 +32,7 @@ export function CvUpload({ file, error, disabled, onFileChange }: CvUploadProps)
         PDF only, maximum 5 MB. You can replace the file at any time.
       </p>
       <div
-        className="mt-2 min-h-64 rounded-[var(--radius-control)] border border-dashed border-[var(--line-strong)] bg-[var(--background)] p-4 transition-colors hover:bg-[var(--surface-muted)]"
+        className="cv-dropzone mt-2 min-h-64 rounded-[var(--radius-control)] border border-dashed p-4 transition-colors"
         onDragOver={(event) => {
           event.preventDefault();
         }}

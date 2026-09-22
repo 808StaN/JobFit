@@ -33,7 +33,7 @@ export function JobDescriptionField({ value, error, disabled, onChange }: JobDes
         maxLength={MAX_JOB_DESCRIPTION_LENGTH}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${helpId} ${countId} ${errorId}` : `${helpId} ${countId}`}
-        className="mt-2 min-h-64 w-full resize-y rounded-[var(--radius-control)] border border-[var(--line-strong)] bg-[var(--background)] px-4 py-3 leading-7 text-[var(--text)] disabled:cursor-not-allowed disabled:opacity-60"
+        className="analysis-textarea mt-2 min-h-64 w-full resize-y rounded-[var(--radius-control)] border px-4 py-3 leading-7 text-[var(--text)] disabled:cursor-not-allowed disabled:opacity-60"
         onChange={(event) => onChange(event.target.value)}
       />
       <p id={countId} className="text-right font-mono text-xs text-[var(--text-muted)]">

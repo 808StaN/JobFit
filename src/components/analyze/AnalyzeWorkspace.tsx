@@ -65,8 +65,8 @@ export function AnalyzeWorkspace() {
 
   return (
     <div className="grid gap-12 sm:gap-16">
-      <section aria-labelledby="inputs-heading" className="surface-panel overflow-hidden">
-        <div className="flex flex-col gap-2 border-b border-[var(--line)] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+      <section aria-labelledby="inputs-heading" className="analysis-inputs-panel overflow-hidden">
+        <div className="analysis-inputs-header flex flex-col gap-2 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
           <div>
             <h2 id="inputs-heading" className="text-xl font-semibold tracking-[-0.025em]">Compare your documents</h2>
           </div>
@@ -98,7 +98,7 @@ export function AnalyzeWorkspace() {
               />
             </div>
           </div>
-          <div className="flex flex-col gap-4 border-t border-[var(--line)] bg-[var(--surface-muted)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+          <div className="analysis-action-bar flex flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
             <p className="max-w-xl text-sm leading-6 text-[var(--text-muted)]">
               The result measures evidence in this CV, not your overall suitability or hiring odds.
             </p>
