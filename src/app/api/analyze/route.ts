@@ -107,6 +107,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: error.status });
     }
 
+    console.error("[analyze] Unexpected request failure", {
+      name: error instanceof Error ? error.name : typeof error,
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
     return NextResponse.json({ error: "We could not analyze your CV right now. Please try again." }, { status: 500 });
   }
 }
