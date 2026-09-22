@@ -1,3 +1,4 @@
+import "pdf-parse/worker";
 import { PDFParse } from "pdf-parse";
 import { MAX_CV_FILE_BYTES } from "@/lib/validation";
 
