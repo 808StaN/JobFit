@@ -3,7 +3,7 @@
 Project: JobFit  
 Environment: production (Vercel)  
 Owner: repository maintainer  
-Status: pending first production deployment and production verification
+Status: deployed and server-side flow verified; manual accessibility and performance audit pending
 
 ## Before deploy
 
@@ -36,17 +36,23 @@ Status: pending first production deployment and production verification
 - [ ] Open `/` and confirm the hero, photography, and Analyze my fit CTA
 - [ ] Open `/analyze` and confirm keyboard access through CV upload, job description, and submit
 - [ ] Submit without a file and confirm inline errors
-- [ ] Submit a real PDF plus a job description and confirm a structured result
-- [ ] Trigger Improve on one existing bullet
+- [x] Submit a real text-based PDF plus a job description and confirm a structured result
+- [x] Trigger Improve on one existing bullet
 - [ ] Confirm a missing-key or provider error renders the fallback message instead of a blank page
 - [ ] Confirm route-level error recovery renders a retry action instead of a blank page
-- [ ] Paste the live URL into README.md
-- [ ] Paste the GitHub repository URL into the portfolio entry
+- [x] Paste the live URL into README.md
+- [x] Paste the GitHub repository URL into the portfolio entry
 - [ ] Run Lighthouse and axe/WAVE against the production URL, then record the results in `docs/audit-results.md`
 
 ## Monitoring
 
 Vercel deployment events and runtime logs are the monitoring surface for this MVP. Check the failed `/api/analyze` request in Vercel logs if a user reports a 5xx. Do not log CV contents.
+
+Production verification on 2026-09-22:
+
+- `POST /api/analyze` without a file returned `400` with a safe validation message.
+- `POST /api/analyze` with a public text PDF returned `200` with a validated analysis object.
+- `POST /api/improve-bullet` returned `200` with a validated rewrite object.
 
 ## Rollback
 
