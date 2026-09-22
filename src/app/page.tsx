@@ -78,7 +78,7 @@ export default function Home() {
           <article
             id="sample-review"
             aria-label="Illustrative JobFit review"
-            className="surface-panel relative lg:col-span-5 lg:translate-y-8"
+            className="surface-panel glass-visual-panel relative lg:col-span-5 lg:translate-y-8"
           >
               <div className="flex items-center justify-between border-b border-[var(--line)] px-5 py-4 sm:px-7">
                 <div>
@@ -141,7 +141,7 @@ export default function Home() {
       <section aria-labelledby="process-heading" className="border-y border-[var(--line)] bg-[var(--surface-muted)]">
         <div className="page-shell grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
           <div className="relative lg:col-span-7">
-            <div className="relative overflow-hidden rounded-[var(--radius-display)] border border-[var(--line)] bg-[var(--surface)] p-5 shadow-[0_2rem_5rem_-3rem_var(--shadow)] sm:p-8">
+            <div className="glass-visual-panel relative overflow-hidden rounded-[var(--radius-display)] border border-[var(--line)] p-5 shadow-[0_2rem_5rem_-3rem_var(--shadow)] sm:p-8">
               <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(var(--line)_1px,transparent_1px),linear-gradient(90deg,var(--line)_1px,transparent_1px)] [background-size:3rem_3rem] [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden />
               <div className="relative flex items-center justify-between gap-4 border-b border-[var(--line)] pb-4">
                 <div>

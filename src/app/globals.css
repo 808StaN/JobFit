@@ -172,6 +172,12 @@ a {
   box-shadow: 0 1.5rem 4rem -3rem var(--shadow);
 }
 
+.glass-visual-panel {
+  background: color-mix(in srgb, var(--surface) 50%, transparent);
+  -webkit-backdrop-filter: blur(1.25rem) saturate(125%);
+  backdrop-filter: blur(1.25rem) saturate(125%);
+}
+
 .floating-nav {
   border: 1px solid color-mix(in srgb, white 24%, transparent);
   border-radius: 14px;
