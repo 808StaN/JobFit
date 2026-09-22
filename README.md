@@ -8,6 +8,7 @@ This is a small production frontend for the Frontend AI Engineering capstone. It
 
 - Local: `http://localhost:3000`
 - Production URL: pending first Vercel deployment
+- Source repository: https://github.com/808StaN/JobFit
 - Analysis workspace: `/analyze`
 
 ## Who it is for
