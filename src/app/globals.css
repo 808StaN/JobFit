@@ -222,8 +222,22 @@ a {
 }
 
 .hero-shader {
+  background-color: #dceeff;
+  background-image:
+    radial-gradient(ellipse 80% 72% at 76% 12%, rgb(98 184 235 / 82%), transparent 60%),
+    radial-gradient(ellipse 65% 88% at 102% 82%, rgb(191 222 247 / 94%), transparent 67%),
+    radial-gradient(ellipse 58% 56% at 38% 98%, rgb(219 238 255 / 88%), transparent 74%),
+    linear-gradient(145deg, #f5f9ff 0%, #dceeff 48%, #9bc9ea 100%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
+}
+
+.ambient-shader {
+  background-color: #b7dcf5;
+  background-image:
+    radial-gradient(ellipse 74% 78% at 16% 14%, rgb(216 239 255 / 94%), transparent 62%),
+    radial-gradient(ellipse 70% 90% at 92% 82%, rgb(120 185 231 / 66%), transparent 70%),
+    linear-gradient(145deg, #d9efff 0%, #b7dcf5 54%, #8ec6eb 100%);
 }
 
 .text-pretty {

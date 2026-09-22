@@ -9,6 +9,7 @@ function mediaMatches(query: string) {
 
 export default function HeroShaderCanvas() {
   const [reducedMotion, setReducedMotion] = useState(() => mediaMatches("(prefers-reduced-motion: reduce)"));
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -22,10 +23,11 @@ export default function HeroShaderCanvas() {
 
   return (
     <Shader
-      className="absolute inset-0 size-full opacity-95"
+      className={`absolute inset-0 size-full transition-opacity duration-300 ${ready ? "opacity-95" : "opacity-0"}`}
       colorSpace="srgb"
       toneMapping="neutral"
       disableTelemetry
+      onReady={() => setReady(true)}
     >
       <Paper roughness={0.2} grainScale={1.5} displacement={0.06} seed={37}>
         <FlowingGradient
