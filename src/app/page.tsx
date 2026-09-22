@@ -240,29 +240,6 @@ export default function Home() {
         </section>
       </div>
 
-      <section className="final-cta">
-        <div className="page-shell grid gap-8 py-16 sm:py-20 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <h2 className="max-w-[17ch] text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.055em] sm:text-5xl">
-              Check the evidence before a recruiter does.
-            </h2>
-          </div>
-          <GravityLink
-            href="/analyze"
-            text="Start the review"
-            variant="primary"
-            icon="arrow-right"
-            sizing={{ paddingX: 24, paddingY: 14, borderRadius: 14, fontSize: 14 }}
-            colors={{
-              background: "var(--accent-button)",
-              backgroundHover: "var(--accent-button)",
-              border: "rgba(255, 255, 255, 0.46)",
-              text: "#ffffff",
-              shadow: "rgba(47, 118, 181, 0.3)",
-            }}
-          />
-        </div>
-      </section>
     </main>
   );
 }

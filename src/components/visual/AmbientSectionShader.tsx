@@ -13,8 +13,8 @@ export function AmbientSectionShader() {
       aria-hidden
       className="pointer-events-none absolute inset-0 overflow-hidden bg-[linear-gradient(145deg,#d9efff,#8ec6eb)]"
       style={{
-        WebkitMaskImage: "linear-gradient(to bottom, transparent 0, black 5rem, black 100%)",
-        maskImage: "linear-gradient(to bottom, transparent 0, black 5rem, black 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, transparent 0, black 5rem, black calc(100% - 5rem), transparent 100%)",
+        maskImage: "linear-gradient(to bottom, transparent 0, black 5rem, black calc(100% - 5rem), transparent 100%)",
       }}
     >
       <AmbientFlowCanvas />
