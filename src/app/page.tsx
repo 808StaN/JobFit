@@ -30,7 +30,7 @@ const outcomes = [
 export default function Home() {
   return (
     <main id="main">
-      <section className="relative isolate overflow-hidden">
+      <section className="hero-content relative isolate overflow-hidden">
         <HeroShader />
         <div className="page-shell relative grid min-h-[46rem] items-center gap-12 pb-16 pt-28 sm:min-h-[48rem] sm:pb-20 sm:pt-32 lg:min-h-[49rem] lg:grid-cols-12 lg:gap-8 lg:pb-24 lg:pt-36">
           <div className="lg:col-span-7 lg:pr-10">

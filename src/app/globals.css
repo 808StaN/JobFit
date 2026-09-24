@@ -232,6 +232,10 @@ a {
   mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
 }
 
+.hero-content {
+  --text-muted: #30475b;
+}
+
 .ambient-shader {
   background-color: #b7dcf5;
   background-image:
