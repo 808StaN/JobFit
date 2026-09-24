@@ -3,18 +3,15 @@
 import { useEffect, useState } from "react";
 import { Aurora, FlowingGradient, Paper, Shader } from "shaders/react";
 
-function mediaMatches(query: string) {
-  return window.matchMedia(query).matches;
-}
-
 export default function HeroShaderCanvas() {
-  const [reducedMotion, setReducedMotion] = useState(() => mediaMatches("(prefers-reduced-motion: reduce)"));
+  const [reducedMotion, setReducedMotion] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const updateMotion = () => setReducedMotion(motion.matches);
 
+    updateMotion();
     motion.addEventListener("change", updateMotion);
     return () => {
       motion.removeEventListener("change", updateMotion);
