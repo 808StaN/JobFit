@@ -21,14 +21,14 @@ export default function AmbientFlowCanvas() {
   }, []);
 
   return (
-    <Shader className="absolute inset-0 size-full opacity-35" colorSpace="srgb" toneMapping="neutral" disableTelemetry>
+    <Shader className="absolute inset-0 size-full opacity-75" colorSpace="srgb" toneMapping="neutral" disableTelemetry>
       <FlowingGradient
         colorA="#d8efff"
         colorB="#b7dcf5"
         colorC="#78b9e7"
         colorD="#c8e7fa"
         colorSpace="oklch"
-        speed={reducedMotion ? 0 : 0.07}
+        speed={reducedMotion ? 0 : 0.75}
         distortion={0.18}
         seed={41}
       />
