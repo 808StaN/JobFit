@@ -121,14 +121,16 @@ npm run test:coverage
 
 Coverage includes form validation, PDF rejection, schema fallback, API routes, the analysis workspace, results rendering, and the bullet rewrite flow. CI enforces a 50% minimum for statements, branches, functions, and lines.
 
-Latest local verification on 2026-09-22: 82 passing tests; 74.11% statements, 69.98% branches, 76.22% functions, and 74.57% lines.
+Latest local verification on 2026-09-25: 84 passing tests; 73.40% statements, 68.57% branches, 76.66% functions, and 73.68% lines.
 
 ## Accessibility and performance
 
 - Semantic headings, labels above inputs, visible focus, skip link
 - `aria-live` progress and `role="alert"` errors
 - Blue action and focus tokens are designed to retain contrast against white surfaces
-- Lighthouse and axe notes live in `docs/audit-results.md`
+- Mobile Lighthouse on September 24, 2026: `/` scored `90 / 100 / 100 / 100`; `/analyze` scored `89 / 100 / 100 / 100` for Performance, Accessibility, Best Practices, and SEO
+- WAVE found no errors on either route; `/analyze` had no contrast errors, while six intentional low-emphasis hero contrast findings on `/` are documented as a known limitation
+- Lighthouse and WAVE evidence live in `docs/audit-results.md`
 
 ## Deployment
 

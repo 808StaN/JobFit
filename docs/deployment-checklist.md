@@ -3,7 +3,7 @@
 Project: JobFit  
 Environment: production (Vercel)  
 Owner: repository maintainer  
-Status: deployed and server-side flow verified; manual accessibility and performance audit pending
+Status: deployed; server-side flow, mobile Lighthouse, and WAVE audits verified. Remaining manual resilience and keyboard walkthrough checks are listed below.
 
 ## Before deploy
 
@@ -33,7 +33,7 @@ Status: deployed and server-side flow verified; manual accessibility and perform
 
 ## After deploy
 
-- [ ] Open `/` and confirm the hero, photography, and Analyze my fit CTA
+- [x] Open `/` and confirm the hero visual and Analyze my fit CTA
 - [ ] Open `/analyze` and confirm keyboard access through CV upload, job description, and submit
 - [ ] Submit without a file and confirm inline errors
 - [x] Submit a real text-based PDF plus a job description and confirm a structured result
@@ -42,7 +42,7 @@ Status: deployed and server-side flow verified; manual accessibility and perform
 - [ ] Confirm route-level error recovery renders a retry action instead of a blank page
 - [x] Paste the live URL into README.md
 - [x] Paste the GitHub repository URL into the portfolio entry
-- [ ] Run Lighthouse and axe/WAVE against the production URL, then record the results in `docs/audit-results.md`
+- [x] Run mobile Lighthouse and WAVE against the production URL, then record the results in `docs/audit-results.md`
 
 ## Monitoring
 
@@ -53,6 +53,11 @@ Production verification on 2026-09-22:
 - `POST /api/analyze` without a file returned `400` with a safe validation message.
 - `POST /api/analyze` with a public text PDF returned `200` with a validated analysis object.
 - `POST /api/improve-bullet` returned `200` with a validated rewrite object.
+
+Audit evidence on 2026-09-24:
+
+- Mobile Lighthouse: `/` scored `90 / 100 / 100 / 100`; `/analyze` scored `89 / 100 / 100 / 100` for Performance, Accessibility, Best Practices, and SEO.
+- WAVE: `/analyze` had `0` errors and `0` contrast errors. `/` had `0` errors, `6` contrast errors, and `5` advisory alerts; the contrast findings are recorded as a known limitation in `docs/audit-results.md`.
 
 ## Rollback
 
