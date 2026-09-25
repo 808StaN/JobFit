@@ -30,7 +30,7 @@ const outcomes = [
 export default function Home() {
   return (
     <main id="main">
-      <section className="hero-content relative isolate overflow-hidden">
+      <section className="relative isolate overflow-hidden">
         <HeroShader />
         <div className="page-shell relative grid min-h-[46rem] items-center gap-12 pb-16 pt-28 sm:min-h-[48rem] sm:pb-20 sm:pt-32 lg:min-h-[49rem] lg:grid-cols-12 lg:gap-8 lg:pb-24 lg:pt-36">
           <div className="lg:col-span-7 lg:pr-10">
@@ -166,7 +166,7 @@ export default function Home() {
                     <span className="h-2 w-full rounded-full bg-[var(--accent-soft)]" />
                     <span className="h-2 w-2/3 rounded-full bg-[var(--surface-strong)]" />
                   </div>
-                  <p className="mt-5 text-xs font-semibold text-[var(--accent)]">14 evidence points</p>
+                  <p className="process-readable-text mt-5 text-xs font-semibold text-[var(--accent)]">14 evidence points</p>
                 </div>
 
                 <span className="mx-auto grid size-10 rotate-90 place-items-center rounded-full border border-[var(--line-strong)] bg-[var(--surface)] text-[var(--accent)] sm:rotate-0" aria-hidden>
@@ -195,9 +195,9 @@ export default function Home() {
                 <p className="data-number text-5xl font-semibold leading-none text-[var(--accent)]">68</p>
                 <div>
                   <p className="font-semibold">Evidence report ready</p>
-                  <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">7 matches · 2 priority gaps · 3 next steps</p>
+                  <p className="process-readable-text mt-1 text-xs leading-5 text-[var(--text-muted)]">7 matches · 2 priority gaps · 3 next steps</p>
                 </div>
-                <span className="text-xs font-semibold text-[var(--accent)]">Fit / 100</span>
+                <span className="process-readable-text text-xs font-semibold text-[var(--accent)]">Fit / 100</span>
               </div>
               </div>
             </div>
@@ -208,21 +208,21 @@ export default function Home() {
               </h2>
               <ol className="mt-9 grid gap-6">
                 <li className="grid grid-cols-[2rem_1fr] gap-4">
-                  <span className="font-mono text-sm text-[var(--accent)]">01</span>
+                  <span className="process-readable-text font-mono text-sm text-[var(--accent)]">01</span>
                   <div>
                     <h3 className="font-semibold">Add your CV</h3>
                     <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Upload one PDF, up to 5 MB.</p>
                   </div>
                 </li>
                 <li className="grid grid-cols-[2rem_1fr] gap-4">
-                  <span className="font-mono text-sm text-[var(--accent)]">02</span>
+                  <span className="process-readable-text font-mono text-sm text-[var(--accent)]">02</span>
                   <div>
                     <h3 className="font-semibold">Paste the complete role</h3>
                     <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Paste the role requirements.</p>
                   </div>
                 </li>
                 <li className="grid grid-cols-[2rem_1fr] gap-4">
-                  <span className="font-mono text-sm text-[var(--accent)]">03</span>
+                  <span className="process-readable-text font-mono text-sm text-[var(--accent)]">03</span>
                   <div>
                     <h3 className="font-semibold">Revise what matters</h3>
                     <p className="mt-1 text-sm leading-6 text-[var(--text-muted)]">Turn gaps into focused CV edits.</p>
