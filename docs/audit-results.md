@@ -1,6 +1,6 @@
 # Audit results
 
-Production audit evidence was captured on September 24, 2026, and the corrected home-page WAVE result was captured on September 25, 2026. The screenshots use the `jobfit-ai-app.vercel.app` Vercel alias; its content matched the canonical production URL, `https://jobfit-one-alpha.vercel.app`, at the time of the audit. The canonical URL is confirmed by the production `robots.txt` and sitemap.
+Production audit evidence was captured on September 24, 2026, and the corrected home-page WAVE result was captured on September 25, 2026. Both audits use the final production URL, `https://jobfit-ai-app.vercel.app`.
 
 ## Accessibility
 

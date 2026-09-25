@@ -7,7 +7,7 @@ JobFit helps frontend and software-engineering candidates compare one PDF CV wit
 ## Live app
 
 - Local: `http://localhost:3000`
-- Production URL: https://jobfit-one-alpha.vercel.app
+- Production URL: https://jobfit-ai-app.vercel.app
 - Source repository: https://github.com/808StaN/JobFit
 - Analysis workspace: `/analyze`
 

@@ -29,7 +29,7 @@ Status: ready for submission; production flow, automated verification, mobile Li
    - `OPENROUTER_MODELS`
    - `GROQ_API_KEY`
    - `GROQ_MODEL`
-   - `APP_URL` (the production origin, for example `https://jobfit.vercel.app`)
+   - `APP_URL` (`https://jobfit-ai-app.vercel.app`)
 4. Deploy.
 
 ## After deploy
