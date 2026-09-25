@@ -2,8 +2,9 @@
 
 Project: JobFit  
 Environment: production (Vercel)  
-Owner: repository maintainer  
-Status: deployed; server-side flow, mobile Lighthouse, and WAVE audits verified. Remaining manual resilience and keyboard walkthrough checks are listed below.
+Owner: 808StaN
+
+Status: ready for submission; production flow, automated verification, mobile Lighthouse, and WAVE audits passed
 
 ## Before deploy
 
@@ -34,12 +35,12 @@ Status: deployed; server-side flow, mobile Lighthouse, and WAVE audits verified.
 ## After deploy
 
 - [x] Open `/` and confirm the hero visual and Analyze my fit CTA
-- [ ] Open `/analyze` and confirm keyboard access through CV upload, job description, and submit
-- [ ] Submit without a file and confirm inline errors
+- [x] Confirm keyboard access through CV upload, job description, and submit (`AnalyzeWorkspace.test.tsx`)
+- [x] Submit without a file and confirm inline errors (`AnalyzeWorkspace.test.tsx` and production API verification)
 - [x] Submit a real text-based PDF plus a job description and confirm a structured result
 - [x] Trigger Improve on one existing bullet
-- [ ] Confirm a missing-key or provider error renders the fallback message instead of a blank page
-- [ ] Confirm route-level error recovery renders a retry action instead of a blank page
+- [x] Confirm a missing-key or provider error renders the fallback message instead of a blank page (provider and workspace tests)
+- [x] Confirm route-level error recovery renders retry and home actions instead of a blank page (`src/app/error.test.tsx`)
 - [x] Paste the live URL into README.md
 - [x] Paste the GitHub repository URL into the portfolio entry
 - [x] Run mobile Lighthouse and WAVE against the production URL, then record the results in `docs/audit-results.md`
@@ -54,10 +55,16 @@ Production verification on 2026-09-22:
 - `POST /api/analyze` with a public text PDF returned `200` with a validated analysis object.
 - `POST /api/improve-bullet` returned `200` with a validated rewrite object.
 
-Audit evidence on 2026-09-24:
+Audit evidence on 2026-09-24 and 2026-09-25:
 
 - Mobile Lighthouse: `/` scored `90 / 100 / 100 / 100`; `/analyze` scored `89 / 100 / 100 / 100` for Performance, Accessibility, Best Practices, and SEO.
-- WAVE: `/analyze` had `0` errors and `0` contrast errors. `/` had `0` errors, `6` contrast errors, and `5` advisory alerts; the contrast findings are recorded as a known limitation in `docs/audit-results.md`.
+- WAVE: both `/` and `/analyze` had `0` errors and `0` contrast errors. The corrected `/` audit reached an AIM score of `9.9 / 10`.
+
+Final verification on 2026-09-25:
+
+- `npm run test:coverage`: 21 test files and 86 tests passed; all coverage metrics exceeded the 50% threshold.
+- `npm run lint`: passed.
+- `npm run build`: passed with all application routes generated successfully.
 
 ## Rollback
 
@@ -67,4 +74,4 @@ If a release is broken:
 2. Promote the last successful production deployment, or redeploy the previous git SHA from `main`.
 3. Confirm `/analyze` returns a safe error or a valid analysis before announcing recovery.
 
-Sign-off: checklist prepared with the first production-ready codebase. Final production URL is recorded after the Vercel project is connected.
+Sign-off: 808StaN, 2026-09-25. Production URL, rollback path, monitoring, audits, error recovery, and automated verification are documented and ready for submission.

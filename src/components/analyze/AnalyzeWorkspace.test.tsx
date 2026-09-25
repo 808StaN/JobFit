@@ -19,6 +19,29 @@ describe("AnalyzeWorkspace", () => {
     expect(screen.getByText("Please provide a job description.")).toBeInTheDocument();
   });
 
+  it("keeps the complete form flow keyboard accessible", async () => {
+    const user = userEvent.setup();
+    render(<AnalyzeWorkspace />);
+
+    const cvInput = screen.getByLabelText("CV");
+    const uploadButton = screen.getByRole("button", { name: /Drop your PDF here/ });
+    const jobDescription = screen.getByLabelText("Job description");
+    const submitButton = screen.getByRole("button", { name: "Analyze my fit" });
+
+    await user.tab();
+    expect(cvInput).toHaveFocus();
+    await user.tab();
+    expect(uploadButton).toHaveFocus();
+    await user.tab();
+    expect(jobDescription).toHaveFocus();
+    await user.tab();
+    expect(submitButton).toHaveFocus();
+
+    await user.keyboard("{Enter}");
+    expect(screen.getByText("Please upload your CV first.")).toBeInTheDocument();
+    expect(screen.getByText("Please provide a job description.")).toBeInTheDocument();
+  });
+
   it("shows the loading state and then the analysis", async () => {
     const user = userEvent.setup();
     vi.stubGlobal(

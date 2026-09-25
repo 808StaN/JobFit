@@ -1,8 +1,8 @@
 # JobFit
 
-JobFit helps a candidate check how well one CV matches one job description, then turns the gap into a short, evidence-based action plan.
+## Project brief
 
-This is a small production frontend for the Frontend AI Engineering capstone. It is not a chatbot. The model compares a PDF CV with a pasted job posting and returns structured recommendations. Missing experience stays missing.
+JobFit helps frontend and software-engineering candidates compare one PDF CV with one job description and turn the evidence gap into a focused revision plan. I chose this idea because generic AI career tools often behave like chatbots and overstate a candidate's experience; JobFit instead constrains the model to structured, evidence-based recommendations and keeps missing experience missing.
 
 ## Live app
 
@@ -10,10 +10,6 @@ This is a small production frontend for the Frontend AI Engineering capstone. It
 - Production URL: https://jobfit-one-alpha.vercel.app
 - Source repository: https://github.com/808StaN/JobFit
 - Analysis workspace: `/analyze`
-
-## Who it is for
-
-Frontend and software-engineering candidates who want a last review before sending an application. The score is an orientation signal for CV-to-role overlap. It is not a prediction of hiring outcome.
 
 ## Quick start
 
@@ -112,6 +108,8 @@ The optional **Improve** action rewrites one existing bullet against the same jo
 
 CV files are processed in memory for the current request. They are not written to disk or a database.
 
+Visible failure behavior is verified by the analysis-workspace integration tests and the route-level recovery test. The UI renders inline validation, an API/provider fallback alert, and a recovery page with `Try again` and `Return home` actions instead of failing to a blank screen.
+
 ## Testing
 
 ```bash
@@ -121,7 +119,7 @@ npm run test:coverage
 
 Coverage includes form validation, PDF rejection, schema fallback, API routes, the analysis workspace, results rendering, and the bullet rewrite flow. CI enforces a 50% minimum for statements, branches, functions, and lines.
 
-Latest local verification on 2026-09-25: 84 passing tests; 73.40% statements, 68.57% branches, 76.66% functions, and 73.68% lines.
+Latest local verification on 2026-09-25: 86 passing tests; 73.40% statements, 68.57% branches, 76.66% functions, and 73.68% lines. The command output and critical-flow inventory are recorded in [`docs/test-results.md`](docs/test-results.md).
 
 ## Accessibility and performance
 
@@ -129,7 +127,7 @@ Latest local verification on 2026-09-25: 84 passing tests; 73.40% statements, 68
 - `aria-live` progress and `role="alert"` errors
 - Blue action and focus tokens are designed to retain contrast against white surfaces
 - Mobile Lighthouse on September 24, 2026: `/` scored `90 / 100 / 100 / 100`; `/analyze` scored `89 / 100 / 100 / 100` for Performance, Accessibility, Best Practices, and SEO
-- WAVE found no errors on either route; `/analyze` had no contrast errors, while six intentional low-emphasis hero contrast findings on `/` are documented as a known limitation
+- WAVE found `0` errors and `0` contrast errors on both audited routes after the process microcopy contrast was corrected
 - Lighthouse and WAVE evidence live in `docs/audit-results.md`
 
 ## Deployment

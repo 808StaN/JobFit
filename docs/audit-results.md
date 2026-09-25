@@ -1,6 +1,6 @@
 # Audit results
 
-Production audit evidence was captured on September 24, 2026. The screenshots use the `jobfit-ai-app.vercel.app` Vercel alias; its content matched the canonical production URL, `https://jobfit-one-alpha.vercel.app`, at the time of the audit. The canonical URL is confirmed by the production `robots.txt` and sitemap.
+Production audit evidence was captured on September 24, 2026, and the corrected home-page WAVE result was captured on September 25, 2026. The screenshots use the `jobfit-ai-app.vercel.app` Vercel alias; its content matched the canonical production URL, `https://jobfit-one-alpha.vercel.app`, at the time of the audit. The canonical URL is confirmed by the production `robots.txt` and sitemap.
 
 ## Accessibility
 
@@ -15,18 +15,16 @@ Implementation checks:
 
 | Tool | Route | Errors | Contrast errors | Alerts | AIM score | Evidence |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
-| WAVE | `/` | 0 | 6 | 5 | 7.8 / 10 | [`wave_mainPage.png`](./wave_mainPage.png) |
+| WAVE | `/` | 0 | 0 | 5 | 9.9 / 10 | [`wave_mainPage.png`](./wave_mainPage.png) |
 | WAVE | `/analyze` | 0 | 0 | 1 | 10 / 10 | [`wave_analyze.png`](./wave_analyze.png) |
 
-### Known accessibility limitation
+### Alert review
 
-The WAVE scan of `/` reports six very-low-contrast findings in the hero. They are low-emphasis supporting text over the light animated visual. The current visual treatment is intentional and remains readable in the manually reviewed rendered page, but this is not equivalent to passing WCAG contrast requirements. The issue is recorded rather than hidden or reported as a clean accessibility result. The `/analyze` route has no WAVE errors or contrast errors.
-
-WAVE also reports non-blocking advisory alerts: five on `/` and one redundant-link alert on `/analyze`. They do not represent WAVE errors.
+The remaining WAVE items are advisory alerts rather than detected WCAG errors. On `/`, two possible-heading alerts identify prominent display text inside illustrative content, two redundant-link alerts reflect repeated navigation destinations, and one very-small-text alert identifies a short decorative status label. `/analyze` reports one redundant-link alert. The pages retain semantic section headings, accessible link names, keyboard access, and `0` WAVE contrast errors.
 
 ## Lighthouse
 
-Target: 85+ on mobile and desktop, with 90+ as the stretch goal. The attached evidence records mobile audits; no desktop screenshot is included in this audit set.
+Target: 85+ Performance, with 90+ as the stretch goal and mobile emphasized by the brief. The attached evidence records mobile audits.
 
 Local production build command:
 
@@ -48,4 +46,4 @@ Expected strengths: no client-side LLM SDK, client-only WebGPU visuals with CSS 
 
 ## One concrete improvement from the audit
 
-The visual runtime was simplified before the final Lighthouse pass: unnecessary hero layers were removed and Next.js now optimizes imports from `shaders/react`. The recorded mobile Performance scores are 90 on `/` and 89 on `/analyze` while preserving the existing visual design.
+The initial WAVE scan found six low-contrast microcopy labels in the process illustration. Those six labels now use a scoped darker blue (`#174260`) without changing the shader, layout, or global palette. The repeat audit improved `/` from six contrast errors and an AIM score of 7.8 to zero contrast errors and an AIM score of 9.9.
